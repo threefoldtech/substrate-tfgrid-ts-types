@@ -2,6 +2,8 @@
 
 Typescript types for substrate tfgrid.
 
+[![NPM version](https://img.shields.io/npm/v/substrate-tfgrid-ts-types.svg?style=flat)](https://npmjs.org/package/substrate-tfgrid-ts-types)
+
 ## Building
 
 ```
