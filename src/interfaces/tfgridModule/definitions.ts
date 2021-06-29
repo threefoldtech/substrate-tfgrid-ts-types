@@ -78,10 +78,6 @@ export default {
           "cu": "u32",
           "nu": "u32"
         },
-        "VolumeType": {
-          "disk_type": "u8",
-          "size": "u32"
-        },
         "Address": "MultiAddress",
         "LookupSource": "MultiAddress",
         "PerDispatchClassU32": {

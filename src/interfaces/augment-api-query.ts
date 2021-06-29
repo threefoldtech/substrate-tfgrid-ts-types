@@ -10,7 +10,7 @@ import type { Scheduled, TaskAddress } from '@polkadot/types/interfaces/schedule
 import type { SessionIndex } from '@polkadot/types/interfaces/session';
 import type { AccountInfo, DigestOf, EventIndex, EventRecord, LastRuntimeUpgradeInfo, Phase } from '@polkadot/types/interfaces/system';
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
-import type { CertificationCodes, Entity, Farm, Node, PricingPolicy, StellarTransaction, Twin } from 'sample-polkadotjs-typegen/interfaces/tfgridModule';
+import type { CertificationCodes, Entity, Farm, Node, PricingPolicy, StellarTransaction, Twin } from 'substrate-tfgrid-ts-types/interfaces/tfgridModule';
 import type { ApiTypes } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/storage' {

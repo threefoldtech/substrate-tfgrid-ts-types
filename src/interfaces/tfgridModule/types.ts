@@ -1,7 +1,7 @@
 // Auto-generated via `yarn polkadot-types-from-defs`, do not edit
 /* eslint-disable */
 
-import type { Bytes, Enum, Struct, U8aFixed, Vec, u32, u64, u8 } from '@polkadot/types';
+import type { Bytes, Enum, Struct, U8aFixed, Vec, u32, u64 } from '@polkadot/types';
 import type { Balance, BlockNumber, MultiAddress } from '@polkadot/types/interfaces/runtime';
 
 /** @name Address */
@@ -148,12 +148,6 @@ export interface VestingInfo extends Struct {
   readonly startingBlock: BlockNumber;
   readonly tft_price: U16F16;
   readonly lastReleasedBlock: BlockNumber;
-}
-
-/** @name VolumeType */
-export interface VolumeType extends Struct {
-  readonly disk_type: u8;
-  readonly size: u32;
 }
 
 export type PHANTOM_TFGRIDMODULE = 'tfgridModule';
