@@ -8,7 +8,7 @@ import type { GrandpaEquivocationProof, KeyOwnerProof } from '@polkadot/types/in
 import type { AccountId, Balance, BalanceOf, BlockNumber, Call, ChangesTrieConfiguration, KeyValue, LookupSource, Moment, Perbill, Weight } from '@polkadot/types/interfaces/runtime';
 import type { Period, Priority } from '@polkadot/types/interfaces/scheduler';
 import type { Key } from '@polkadot/types/interfaces/system';
-import type { CertificationCodeType, Farm, Node } from 'substrate-tfgrid-ts-types/interfaces/tfgridModule';
+import type { CertificationCodeType, Farm, Node } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { ApiTypes, SubmittableExtrinsic } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/submittable' {
