@@ -110,8 +110,7 @@ export default {
       "StellarTransaction": {
         "amount": "Balance",
         "target": "MultiAddress"
-      },
-      "AccountInfo": "AccountInfoWithProviders"
+      }
     }      
   };
   

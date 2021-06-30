@@ -4,9 +4,6 @@
 import type { Bytes, Enum, Option, Struct, U8aFixed, Vec, u32, u64 } from '@polkadot/types';
 import type { AccountId, Balance, BlockNumber, MultiAddress } from '@polkadot/types/interfaces/runtime';
 
-/** @name AccountInfo */
-export interface AccountInfo extends AccountInfoWithProviders {}
-
 /** @name Address */
 export interface Address extends MultiAddress {}
 
