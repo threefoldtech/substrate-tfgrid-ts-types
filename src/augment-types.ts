@@ -49,7 +49,7 @@ import type { Bounty, BountyIndex, BountyStatus, BountyStatusActive, BountyStatu
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Multisig, Timepoint } from '@polkadot/types/interfaces/utility';
 import type { VestingInfo } from '@polkadot/types/interfaces/vesting';
-import type { BlockLength, CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, Location, Node, PerDispatchClassU32, PricingPolicy, Public, Resources, Role, StellarTransaction, Twin, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, Location, Node, PricingPolicy, Public, PublicConfig, Resources, Role, StellarTransaction, Twin, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
 declare module '@polkadot/types/types/registry' {
   export interface InterfaceTypes {
@@ -1900,6 +1900,9 @@ declare module '@polkadot/types/types/registry' {
     Node: Node;
     'Option<Node>': Option<Node>;
     'Vec<Node>': Vec<Node>;
+    PublicConfig: PublicConfig;
+    'Option<PublicConfig>': Option<PublicConfig>;
+    'Vec<PublicConfig>': Vec<PublicConfig>;
     Role: Role;
     'Option<Role>': Option<Role>;
     'Vec<Role>': Vec<Role>;
@@ -1921,12 +1924,6 @@ declare module '@polkadot/types/types/registry' {
     PricingPolicy: PricingPolicy;
     'Option<PricingPolicy>': Option<PricingPolicy>;
     'Vec<PricingPolicy>': Vec<PricingPolicy>;
-    PerDispatchClassU32: PerDispatchClassU32;
-    'Option<PerDispatchClassU32>': Option<PerDispatchClassU32>;
-    'Vec<PerDispatchClassU32>': Vec<PerDispatchClassU32>;
-    BlockLength: BlockLength;
-    'Option<BlockLength>': Option<BlockLength>;
-    'Vec<BlockLength>': Vec<BlockLength>;
     Public: Public;
     'Option<Public>': Option<Public>;
     'Vec<Public>': Vec<Public>;

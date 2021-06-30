@@ -349,7 +349,7 @@ declare module '@polkadot/api/types/submittable' {
       createCertificationCode: AugmentedSubmittable<(name: Bytes | string | Uint8Array, description: Bytes | string | Uint8Array, certificationCodeType: CertificationCodeType | 'Farm' | 'Entity' | number | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createEntity: AugmentedSubmittable<(target: AccountId | string | Uint8Array, name: Bytes | string | Uint8Array, countryId: u32 | AnyNumber | Uint8Array, cityId: u32 | AnyNumber | Uint8Array, signature: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createFarm: AugmentedSubmittable<(farm: Farm | { version?: any; id?: any; name?: any; twin_id?: any; pricing_policy_id?: any; certification_type?: any; country_id?: any; city_id?: any } | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
-      createNode: AugmentedSubmittable<(node: Node | { version?: any; id?: any; farm_id?: any; resources?: any; location?: any; country_id?: any; city_id?: any; pub_key?: any; address?: any; role?: any } | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      createNode: AugmentedSubmittable<(node: Node | { version?: any; id?: any; farm_id?: any; twin_id?: any; resources?: any; location?: any; country_id?: any; city_id?: any; address?: any; role?: any; public_config?: any } | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createPricingPolicy: AugmentedSubmittable<(name: Bytes | string | Uint8Array, currency: Bytes | string | Uint8Array, su: u32 | AnyNumber | Uint8Array, cu: u32 | AnyNumber | Uint8Array, nu: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createTwin: AugmentedSubmittable<(ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       deleteEntity: AugmentedSubmittable<() => SubmittableExtrinsic<ApiType>>;
@@ -358,6 +358,7 @@ declare module '@polkadot/api/types/submittable' {
       deleteTwin: AugmentedSubmittable<(twinId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       deleteTwinEntity: AugmentedSubmittable<(twinId: u32 | AnyNumber | Uint8Array, entityId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateEntity: AugmentedSubmittable<(name: Bytes | string | Uint8Array, countryId: u32 | AnyNumber | Uint8Array, cityId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      updateNode: AugmentedSubmittable<(node: Node | { version?: any; id?: any; farm_id?: any; twin_id?: any; resources?: any; location?: any; country_id?: any; city_id?: any; address?: any; role?: any; public_config?: any } | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateTwin: AugmentedSubmittable<(twinId: u32 | AnyNumber | Uint8Array, ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     tftBridgeModule: {

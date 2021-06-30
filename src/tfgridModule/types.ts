@@ -1,19 +1,17 @@
 // Auto-generated via `yarn polkadot-types-from-defs`, do not edit
 /* eslint-disable */
 
-import type { Bytes, Enum, Struct, U8aFixed, Vec, u32, u64 } from '@polkadot/types';
-import type { Balance, BlockNumber, MultiAddress } from '@polkadot/types/interfaces/runtime';
+import type { Bytes, Enum, Option, Struct, U8aFixed, Vec, u32, u64 } from '@polkadot/types';
+import type { AccountId, Balance, BlockNumber, MultiAddress } from '@polkadot/types/interfaces/runtime';
+
+/** @name AccountInfo */
+export interface AccountInfo extends AccountInfoWithProviders {}
 
 /** @name Address */
 export interface Address extends MultiAddress {}
 
 /** @name BalanceOf */
 export interface BalanceOf extends Balance {}
-
-/** @name BlockLength */
-export interface BlockLength extends Struct {
-  readonly max: PerDispatchClassU32;
-}
 
 /** @name CertificationCodes */
 export interface CertificationCodes extends Struct {
@@ -44,7 +42,7 @@ export interface Entity extends Struct {
   readonly name: Bytes;
   readonly country_id: u32;
   readonly city_id: u32;
-  readonly address: MultiAddress;
+  readonly address: AccountId;
 }
 
 /** @name EntityProof */
@@ -79,20 +77,14 @@ export interface Node extends Struct {
   readonly version: u32;
   readonly id: u32;
   readonly farm_id: u32;
+  readonly twin_id: u32;
   readonly resources: Resources;
   readonly location: Location;
   readonly country_id: u32;
   readonly city_id: u32;
-  readonly pub_key: Bytes;
-  readonly address: MultiAddress;
+  readonly address: AccountId;
   readonly role: Role;
-}
-
-/** @name PerDispatchClassU32 */
-export interface PerDispatchClassU32 extends Struct {
-  readonly normal: u32;
-  readonly operational: u32;
-  readonly mandatory: u32;
+  readonly public_config: Option<PublicConfig>;
 }
 
 /** @name PricingPolicy */
@@ -108,6 +100,14 @@ export interface PricingPolicy extends Struct {
 
 /** @name Public */
 export interface Public extends U8aFixed {}
+
+/** @name PublicConfig */
+export interface PublicConfig extends Struct {
+  readonly ipv4: Bytes;
+  readonly ipv6: Bytes;
+  readonly gw4: Bytes;
+  readonly gw6: Bytes;
+}
 
 /** @name Resources */
 export interface Resources extends Struct {
@@ -133,7 +133,7 @@ export interface StellarTransaction extends Struct {
 export interface Twin extends Struct {
   readonly version: u32;
   readonly id: u32;
-  readonly address: MultiAddress;
+  readonly address: AccountId;
   readonly ip: Bytes;
   readonly entities: Vec<EntityProof>;
 }
