@@ -15,7 +15,8 @@ export default {
       },
       "PublicIP": {
         "ip": "Vec<u8>",
-        "workload_id": "u32"
+        "gateway": "Vec<u8>",
+        "contract_id": "u32"
       },
       "Entity": {
         "version": "u32",

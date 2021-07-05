@@ -358,6 +358,7 @@ declare module '@polkadot/api/types/submittable' {
       deleteTwin: AugmentedSubmittable<(twinId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       deleteTwinEntity: AugmentedSubmittable<(twinId: u32 | AnyNumber | Uint8Array, entityId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateEntity: AugmentedSubmittable<(name: Bytes | string | Uint8Array, countryId: u32 | AnyNumber | Uint8Array, cityId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      updateNode: AugmentedSubmittable<(node: Node | { version?: any; id?: any; farm_id?: any; twin_id?: any; resources?: any; location?: any; country_id?: any; city_id?: any; address?: any; role?: any; public_config?: any } | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateTwin: AugmentedSubmittable<(twinId: u32 | AnyNumber | Uint8Array, ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     tftBridgeModule: {

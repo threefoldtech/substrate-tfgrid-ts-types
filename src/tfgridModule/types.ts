@@ -110,7 +110,8 @@ export interface PublicConfig extends Struct {
 /** @name PublicIP */
 export interface PublicIP extends Struct {
   readonly ip: Bytes;
-  readonly workload_id: u32;
+  readonly gateway: Bytes;
+  readonly contract_id: u32;
 }
 
 /** @name Resources */
