@@ -49,7 +49,7 @@ import type { Bounty, BountyIndex, BountyStatus, BountyStatusActive, BountyStatu
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Multisig, Timepoint } from '@polkadot/types/interfaces/utility';
 import type { VestingInfo } from '@polkadot/types/interfaces/vesting';
-import type { CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, Location, Node, PricingPolicy, Public, PublicConfig, Resources, Role, StellarTransaction, Twin, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, Location, Node, PricingPolicy, Public, PublicConfig, PublicIP, Resources, Role, StellarTransaction, Twin, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
 declare module '@polkadot/types/types/registry' {
   export interface InterfaceTypes {
@@ -1888,6 +1888,9 @@ declare module '@polkadot/types/types/registry' {
     Farm: Farm;
     'Option<Farm>': Option<Farm>;
     'Vec<Farm>': Vec<Farm>;
+    PublicIP: PublicIP;
+    'Option<PublicIP>': Option<PublicIP>;
+    'Vec<PublicIP>': Vec<PublicIP>;
     Entity: Entity;
     'Option<Entity>': Option<Entity>;
     'Vec<Entity>': Vec<Entity>;

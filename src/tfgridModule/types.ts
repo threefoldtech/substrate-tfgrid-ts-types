@@ -58,6 +58,7 @@ export interface Farm extends Struct {
   readonly certification_type: CertificationType;
   readonly country_id: u32;
   readonly city_id: u32;
+  readonly public_ips: Vec<PublicIP>;
 }
 
 /** @name Location */
@@ -104,6 +105,12 @@ export interface PublicConfig extends Struct {
   readonly ipv6: Bytes;
   readonly gw4: Bytes;
   readonly gw6: Bytes;
+}
+
+/** @name PublicIP */
+export interface PublicIP extends Struct {
+  readonly ip: Bytes;
+  readonly workload_id: u32;
 }
 
 /** @name Resources */
