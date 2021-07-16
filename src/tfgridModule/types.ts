@@ -1,7 +1,7 @@
 // Auto-generated via `yarn polkadot-types-from-defs`, do not edit
 /* eslint-disable */
 
-import type { Bytes, Enum, Option, Struct, U8aFixed, Vec, u32, u64 } from '@polkadot/types';
+import type { Bytes, Enum, Option, Struct, U8aFixed, Vec, u32, u64, u8 } from '@polkadot/types';
 import type { AccountId, Balance, BlockNumber, MultiAddress } from '@polkadot/types/interfaces/runtime';
 
 /** @name Address */
@@ -30,6 +30,40 @@ export interface CertificationType extends Enum {
   readonly isNone: boolean;
   readonly isSilver: boolean;
   readonly isGold: boolean;
+}
+
+/** @name Consumption */
+export interface Consumption extends Struct {
+  readonly contract_id: u64;
+  readonly timestamp: u64;
+  readonly cru: u64;
+  readonly sru: u64;
+  readonly hru: u64;
+  readonly mru: u64;
+  readonly nru: u64;
+}
+
+/** @name Contract */
+export interface Contract extends Struct {
+  readonly version: u32;
+  readonly contract_id: u64;
+  readonly twin_id: u32;
+  readonly node_id: AccountId;
+  readonly data: Bytes;
+  readonly deployment_hash: Bytes;
+  readonly public_ips: u32;
+  readonly state: ContractState;
+  readonly last_updated: u64;
+  readonly previous_nu_reported: u64;
+  readonly public_ips_list: Vec<PublicIP>;
+  readonly amount_unbilled: u64;
+}
+
+/** @name ContractState */
+export interface ContractState extends Enum {
+  readonly isCreated: boolean;
+  readonly isDeleted: boolean;
+  readonly isOutOfFunds: boolean;
 }
 
 /** @name Entity */
@@ -90,10 +124,11 @@ export interface PricingPolicy extends Struct {
   readonly version: u32;
   readonly id: u32;
   readonly name: Bytes;
-  readonly currency: Bytes;
+  readonly unit: Unit;
   readonly su: u32;
   readonly cu: u32;
   readonly nu: u32;
+  readonly ipu: u32;
 }
 
 /** @name Public */
@@ -111,7 +146,7 @@ export interface PublicConfig extends Struct {
 export interface PublicIP extends Struct {
   readonly ip: Bytes;
   readonly gateway: Bytes;
-  readonly contract_id: u32;
+  readonly contract_id: u64;
 }
 
 /** @name Resources */
@@ -146,6 +181,14 @@ export interface Twin extends Struct {
 /** @name U16F16 */
 export interface U16F16 extends U8aFixed {}
 
+/** @name Unit */
+export interface Unit extends Enum {
+  readonly isBytes: boolean;
+  readonly isKilobytes: boolean;
+  readonly isMegabytes: boolean;
+  readonly isGigabytes: boolean;
+}
+
 /** @name VestingInfo */
 export interface VestingInfo extends Struct {
   readonly locked: Balance;
@@ -153,6 +196,12 @@ export interface VestingInfo extends Struct {
   readonly startingBlock: BlockNumber;
   readonly tft_price: U16F16;
   readonly lastReleasedBlock: BlockNumber;
+}
+
+/** @name VolumeType */
+export interface VolumeType extends Struct {
+  readonly disk_type: u8;
+  readonly size: u32;
 }
 
 export type PHANTOM_TFGRIDMODULE = 'tfgridModule';
