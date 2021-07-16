@@ -110,10 +110,6 @@ export default {
           "Gigabytes"
         ]
       },
-      "VolumeType": {
-        "disk_type": "u8",
-        "size": "u32"
-      },
       "Contract": {
         "version": "u32",
         "contract_id": "u64",
