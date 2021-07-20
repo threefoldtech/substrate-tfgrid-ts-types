@@ -33,11 +33,6 @@ export default {
         "Deleted",
         "OutOfFunds"
       ]
-    },
-    "PublicIP": {
-      "ip": "Vec<u8>",
-      "gateway": "Vec<u8>",
-      "contract_id": "u64"
-    },
+    }
   }      
 };

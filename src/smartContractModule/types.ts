@@ -2,6 +2,7 @@
 /* eslint-disable */
 
 import type { Bytes, Enum, Struct, Vec, u32, u64 } from '@polkadot/types';
+import type { PublicIP } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
 /** @name Consumption */
 export interface Consumption extends Struct {
@@ -39,13 +40,6 @@ export interface NodeContract extends Struct {
   readonly public_ips: u32;
   readonly state: ContractState;
   readonly public_ips_list: Vec<PublicIP>;
-}
-
-/** @name PublicIP */
-export interface PublicIP extends Struct {
-  readonly ip: Bytes;
-  readonly gateway: Bytes;
-  readonly contract_id: u64;
 }
 
 export type PHANTOM_SMARTCONTRACTMODULE = 'smartContractModule';
