@@ -49,7 +49,8 @@ import type { Bounty, BountyIndex, BountyStatus, BountyStatusActive, BountyStatu
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Multisig, Timepoint } from '@polkadot/types/interfaces/utility';
 import type { VestingInfo } from '@polkadot/types/interfaces/vesting';
-import type { CertificationCodeType, CertificationCodes, CertificationType, Consumption, ContractBillingInformation, ContractState, Entity, EntityProof, Farm, Location, Node, NodeContract, PricingPolicy, Public, PublicConfig, PublicIP, Resources, StellarTransaction, Twin, U16F16, Unit } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { Consumption, ContractBillingInformation, ContractState, NodeContract } from 'substrate-tfgrid-ts-types/src/smartContractModule';
+import type { CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, Location, Node, PricingPolicy, Public, PublicConfig, PublicIP, Resources, StellarTransaction, Twin, U16F16, Unit } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
 declare module '@polkadot/types/types/registry' {
   export interface InterfaceTypes {
@@ -1927,18 +1928,6 @@ declare module '@polkadot/types/types/registry' {
     Unit: Unit;
     'Option<Unit>': Option<Unit>;
     'Vec<Unit>': Vec<Unit>;
-    NodeContract: NodeContract;
-    'Option<NodeContract>': Option<NodeContract>;
-    'Vec<NodeContract>': Vec<NodeContract>;
-    ContractBillingInformation: ContractBillingInformation;
-    'Option<ContractBillingInformation>': Option<ContractBillingInformation>;
-    'Vec<ContractBillingInformation>': Vec<ContractBillingInformation>;
-    ContractState: ContractState;
-    'Option<ContractState>': Option<ContractState>;
-    'Vec<ContractState>': Vec<ContractState>;
-    Consumption: Consumption;
-    'Option<Consumption>': Option<Consumption>;
-    'Vec<Consumption>': Vec<Consumption>;
     Public: Public;
     'Option<Public>': Option<Public>;
     'Vec<Public>': Vec<Public>;
@@ -1948,5 +1937,17 @@ declare module '@polkadot/types/types/registry' {
     StellarTransaction: StellarTransaction;
     'Option<StellarTransaction>': Option<StellarTransaction>;
     'Vec<StellarTransaction>': Vec<StellarTransaction>;
+    NodeContract: NodeContract;
+    'Option<NodeContract>': Option<NodeContract>;
+    'Vec<NodeContract>': Vec<NodeContract>;
+    Consumption: Consumption;
+    'Option<Consumption>': Option<Consumption>;
+    'Vec<Consumption>': Vec<Consumption>;
+    ContractBillingInformation: ContractBillingInformation;
+    'Option<ContractBillingInformation>': Option<ContractBillingInformation>;
+    'Vec<ContractBillingInformation>': Vec<ContractBillingInformation>;
+    ContractState: ContractState;
+    'Option<ContractState>': Option<ContractState>;
+    'Vec<ContractState>': Vec<ContractState>;
   }
 }

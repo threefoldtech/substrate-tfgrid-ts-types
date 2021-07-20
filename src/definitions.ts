@@ -3,3 +3,4 @@
 //   https://github.com/hicommonwealth/edgeware-node-types/tree/master/types
 
 export { default as tfgridModule } from './tfgridModule/definitions';
+export { default as smartContractModule } from './smartContractModule/defintitions';

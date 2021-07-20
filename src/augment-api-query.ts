@@ -10,7 +10,8 @@ import type { Scheduled, TaskAddress } from '@polkadot/types/interfaces/schedule
 import type { SessionIndex } from '@polkadot/types/interfaces/session';
 import type { AccountInfo, DigestOf, EventIndex, EventRecord, LastRuntimeUpgradeInfo, Phase } from '@polkadot/types/interfaces/system';
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
-import type { CertificationCodes, ContractState, Entity, Farm, Node, PricingPolicy, StellarTransaction, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { ContractBillingInformation, ContractState, NodeContract } from 'substrate-tfgrid-ts-types/src/smartContractModule';
+import type { CertificationCodes, Entity, Farm, Node, PricingPolicy, StellarTransaction, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { ApiTypes } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/storage' {
@@ -93,10 +94,11 @@ declare module '@polkadot/api/types/storage' {
       storageVersion: AugmentedQuery<ApiType, () => Observable<Releases>>;
     };
     smartContractModule: {
+      contractBillingInformationById: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<ContractBillingInformation>>;
       contractId: AugmentedQuery<ApiType, () => Observable<u64>>;
-      contracts: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Contract>>;
+      contracts: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<NodeContract>>;
       contractsToBillAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Vec<u64>>>;
-      nodeContracts: AugmentedQueryDoubleMap<ApiType, (key1: AccountId | string | Uint8Array, key2: ContractState | 'Created' | 'Deleted' | 'OutOfFunds' | number | Uint8Array) => Observable<Vec<Contract>>>;
+      nodeContracts: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: ContractState | 'Created' | 'Deleted' | 'OutOfFunds' | number | Uint8Array) => Observable<Vec<NodeContract>>>;
     };
     sudo: {
       /**
@@ -182,24 +184,24 @@ declare module '@polkadot/api/types/storage' {
     };
     tfgridModule: {
       certificationCodeId: AugmentedQuery<ApiType, () => Observable<u32>>;
+      certificationCodeIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
       certificationCodes: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<CertificationCodes>>;
-      certificationCodesByNameId: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
       entities: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Entity>>;
-      entitiesByNameId: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
-      entitiesByPubkeyId: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<u32>>;
       entityId: AugmentedQuery<ApiType, () => Observable<u32>>;
+      entityIdByAccountId: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<u32>>;
+      entityIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
       farmId: AugmentedQuery<ApiType, () => Observable<u32>>;
+      farmIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
       farms: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Farm>>;
-      farmsByNameId: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
       nodeId: AugmentedQuery<ApiType, () => Observable<u32>>;
+      nodeIdByTwinId: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<u32>>;
       nodes: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Node>>;
-      nodesByPubkeyId: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<u32>>;
       pricingPolicies: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<PricingPolicy>>;
-      pricingPoliciesByNameId: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
       pricingPolicyId: AugmentedQuery<ApiType, () => Observable<u32>>;
+      pricingPolicyIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
       twinId: AugmentedQuery<ApiType, () => Observable<u32>>;
+      twinIdByAccountId: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<u32>>;
       twins: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Twin>>;
-      twinsByPubkeyId: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<u32>>;
     };
     tftBridgeModule: {
       executedTransactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<StellarTransaction>>;
