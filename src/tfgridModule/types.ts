@@ -27,9 +27,8 @@ export interface CertificationCodeType extends Enum {
 
 /** @name CertificationType */
 export interface CertificationType extends Enum {
-  readonly isNone: boolean;
-  readonly isSilver: boolean;
-  readonly isGold: boolean;
+  readonly isDiy: boolean;
+  readonly isCertified: boolean;
 }
 
 /** @name Consumption */
@@ -43,19 +42,10 @@ export interface Consumption extends Struct {
   readonly nru: u64;
 }
 
-/** @name Contract */
-export interface Contract extends Struct {
-  readonly version: u32;
-  readonly contract_id: u64;
-  readonly twin_id: u32;
-  readonly node_id: AccountId;
-  readonly data: Bytes;
-  readonly deployment_hash: Bytes;
-  readonly public_ips: u32;
-  readonly state: ContractState;
-  readonly last_updated: u64;
+/** @name ContractBillingInformation */
+export interface ContractBillingInformation extends Struct {
   readonly previous_nu_reported: u64;
-  readonly public_ips_list: Vec<PublicIP>;
+  readonly last_updated: u64;
   readonly amount_unbilled: u64;
 }
 
@@ -73,7 +63,7 @@ export interface Entity extends Struct {
   readonly name: Bytes;
   readonly country_id: u32;
   readonly city_id: u32;
-  readonly address: AccountId;
+  readonly account_id: AccountId;
 }
 
 /** @name EntityProof */
@@ -114,9 +104,20 @@ export interface Node extends Struct {
   readonly location: Location;
   readonly country_id: u32;
   readonly city_id: u32;
-  readonly address: AccountId;
-  readonly role: Role;
   readonly public_config: Option<PublicConfig>;
+}
+
+/** @name NodeContract */
+export interface NodeContract extends Struct {
+  readonly version: u32;
+  readonly contract_id: u64;
+  readonly twin_id: u32;
+  readonly node_id: u32;
+  readonly deploy_mentdata: Bytes;
+  readonly deployment_hash: Bytes;
+  readonly public_ips: u32;
+  readonly state: ContractState;
+  readonly public_ips_list: Vec<PublicIP>;
 }
 
 /** @name PricingPolicy */
@@ -157,12 +158,6 @@ export interface Resources extends Struct {
   readonly mru: u64;
 }
 
-/** @name Role */
-export interface Role extends Enum {
-  readonly isNode: boolean;
-  readonly isGateway: boolean;
-}
-
 /** @name StellarTransaction */
 export interface StellarTransaction extends Struct {
   readonly amount: Balance;
@@ -173,7 +168,7 @@ export interface StellarTransaction extends Struct {
 export interface Twin extends Struct {
   readonly version: u32;
   readonly id: u32;
-  readonly address: AccountId;
+  readonly account_id: AccountId;
   readonly ip: Bytes;
   readonly entities: Vec<EntityProof>;
 }

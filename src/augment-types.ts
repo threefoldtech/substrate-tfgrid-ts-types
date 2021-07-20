@@ -49,7 +49,7 @@ import type { Bounty, BountyIndex, BountyStatus, BountyStatusActive, BountyStatu
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Multisig, Timepoint } from '@polkadot/types/interfaces/utility';
 import type { VestingInfo } from '@polkadot/types/interfaces/vesting';
-import type { CertificationCodeType, CertificationCodes, CertificationType, Consumption, Contract, ContractState, Entity, EntityProof, Farm, Location, Node, PricingPolicy, Public, PublicConfig, PublicIP, Resources, Role, StellarTransaction, Twin, U16F16, Unit } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodeType, CertificationCodes, CertificationType, Consumption, ContractBillingInformation, ContractState, Entity, EntityProof, Farm, Location, Node, NodeContract, PricingPolicy, Public, PublicConfig, PublicIP, Resources, StellarTransaction, Twin, U16F16, Unit } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
 declare module '@polkadot/types/types/registry' {
   export interface InterfaceTypes {
@@ -1906,9 +1906,6 @@ declare module '@polkadot/types/types/registry' {
     PublicConfig: PublicConfig;
     'Option<PublicConfig>': Option<PublicConfig>;
     'Vec<PublicConfig>': Vec<PublicConfig>;
-    Role: Role;
-    'Option<Role>': Option<Role>;
-    'Vec<Role>': Vec<Role>;
     Location: Location;
     'Option<Location>': Option<Location>;
     'Vec<Location>': Vec<Location>;
@@ -1930,9 +1927,12 @@ declare module '@polkadot/types/types/registry' {
     Unit: Unit;
     'Option<Unit>': Option<Unit>;
     'Vec<Unit>': Vec<Unit>;
-    Contract: Contract;
-    'Option<Contract>': Option<Contract>;
-    'Vec<Contract>': Vec<Contract>;
+    NodeContract: NodeContract;
+    'Option<NodeContract>': Option<NodeContract>;
+    'Vec<NodeContract>': Vec<NodeContract>;
+    ContractBillingInformation: ContractBillingInformation;
+    'Option<ContractBillingInformation>': Option<ContractBillingInformation>;
+    'Vec<ContractBillingInformation>': Vec<ContractBillingInformation>;
     ContractState: ContractState;
     'Option<ContractState>': Option<ContractState>;
     'Vec<ContractState>': Vec<ContractState>;

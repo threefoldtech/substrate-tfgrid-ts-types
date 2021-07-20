@@ -24,12 +24,12 @@ export default {
         "name": "Vec<u8>",
         "country_id": "u32",
         "city_id": "u32",
-        "address": "AccountId"
+        "account_id": "AccountId"
       },
       "Twin": {
         "version": "u32",
         "id": "u32",
-        "address": "AccountId",
+        "account_id": "AccountId",
         "ip": "Vec<u8>",
         "entities": "Vec<EntityProof>"
       },
@@ -46,8 +46,6 @@ export default {
         "location": "Location",
         "country_id": "u32",
         "city_id": "u32",
-        "address": "AccountId",
-        "role": "Role",
         "public_config": "Option<PublicConfig>"
       },
       "PublicConfig": {
@@ -55,12 +53,6 @@ export default {
         "ipv6": "Vec<u8>",
         "gw4": "Vec<u8>",
         "gw6": "Vec<u8>"
-      },
-      "Role": {
-        "_enum": [
-          "Node",
-          "Gateway"
-        ]
       },
       "Location": {
         "longitude": "Vec<u8>",
@@ -74,9 +66,8 @@ export default {
       },
       "CertificationType": {
         "_enum": [
-          "None",
-          "Silver",
-          "Gold"
+          "Diy",
+          "Certified"
         ]
       },
       "CertificationCodeType": {
@@ -110,18 +101,20 @@ export default {
           "Gigabytes"
         ]
       },
-      "Contract": {
+      "NodeContract": {
         "version": "u32",
         "contract_id": "u64",
         "twin_id": "u32",
-        "node_id": "AccountId",
-        "data": "Vec<u8>",
+        "node_id": "u32",
+        "deploy_mentdata": "Vec<u8>",
         "deployment_hash": "Vec<u8>",
         "public_ips": "u32",
         "state": "ContractState",
-        "last_updated": "u64",
+        "public_ips_list": "Vec<PublicIP>"
+      },
+      "ContractBillingInformation": {
         "previous_nu_reported": "u64",
-        "public_ips_list": "Vec<PublicIP>",
+        "last_updated": "u64",
         "amount_unbilled": "u64"
       },
       "ContractState": {
