@@ -10,3 +10,6 @@ Typescript types for substrate tfgrid.
 yarn
 yarn build
 ```
+
+> is used in https://github.com/threefoldtech/tfgrid-substrate/tree/development/graphql
+
