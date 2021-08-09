@@ -33,6 +33,15 @@ export default {
         "Deleted",
         "OutOfFunds"
       ]
-    }
+    },
+    "DiscountLevel": {
+      "_enum": [
+        "None",
+        "Default",
+        "Bronze",
+        "Silver",
+        "Gold"
+      ]
+    },
   }      
 };

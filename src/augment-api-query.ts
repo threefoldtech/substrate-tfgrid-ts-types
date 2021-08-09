@@ -96,6 +96,7 @@ declare module '@polkadot/api/types/storage' {
     smartContractModule: {
       contractBillingInformationById: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<ContractBillingInformation>>;
       contractId: AugmentedQuery<ApiType, () => Observable<u64>>;
+      contractIdByNodeIdAndHash: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: Bytes | string | Uint8Array) => Observable<u64>>;
       contracts: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<NodeContract>>;
       contractsToBillAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Vec<u64>>>;
       nodeContracts: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: ContractState | 'Created' | 'Deleted' | 'OutOfFunds' | number | Uint8Array) => Observable<Vec<NodeContract>>>;

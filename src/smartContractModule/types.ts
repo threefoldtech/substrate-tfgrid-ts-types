@@ -29,6 +29,15 @@ export interface ContractState extends Enum {
   readonly isOutOfFunds: boolean;
 }
 
+/** @name DiscountLevel */
+export interface DiscountLevel extends Enum {
+  readonly isNone: boolean;
+  readonly isDefault: boolean;
+  readonly isBronze: boolean;
+  readonly isSilver: boolean;
+  readonly isGold: boolean;
+}
+
 /** @name NodeContract */
 export interface NodeContract extends Struct {
   readonly version: u32;
