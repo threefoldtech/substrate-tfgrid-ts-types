@@ -60,6 +60,19 @@ export interface Farm extends Struct {
   readonly public_ips: Vec<PublicIP>;
 }
 
+/** @name FarmingPolicy */
+export interface FarmingPolicy extends Struct {
+  readonly version: u32;
+  readonly id: u32;
+  readonly name: Bytes;
+  readonly cu: u32;
+  readonly su: u32;
+  readonly nu: u32;
+  readonly ipv4: u32;
+  readonly timestamp: u64;
+  readonly certification_type: CertificationType;
+}
+
 /** @name Location */
 export interface Location extends Struct {
   readonly longitude: Bytes;
@@ -68,6 +81,13 @@ export interface Location extends Struct {
 
 /** @name LookupSource */
 export interface LookupSource extends MultiAddress {}
+
+/** @name NameRegistration */
+export interface NameRegistration extends Struct {
+  readonly name_registration_id: u64;
+  readonly twin_id: u32;
+  readonly name: Bytes;
+}
 
 /** @name Node */
 export interface Node extends Struct {
@@ -80,6 +100,9 @@ export interface Node extends Struct {
   readonly country_id: u32;
   readonly city_id: u32;
   readonly public_config: Option<PublicConfig>;
+  readonly uptime: u64;
+  readonly created: u64;
+  readonly farming_policy_id: u32;
 }
 
 /** @name PricingPolicy */
@@ -92,6 +115,8 @@ export interface PricingPolicy extends Struct {
   readonly cu: u32;
   readonly nu: u32;
   readonly ipu: u32;
+  readonly foundation_account: AccountId;
+  readonly certified_sales_account: AccountId;
 }
 
 /** @name Public */

@@ -11,7 +11,7 @@ import type { SessionIndex } from '@polkadot/types/interfaces/session';
 import type { AccountInfo, DigestOf, EventIndex, EventRecord, LastRuntimeUpgradeInfo, Phase } from '@polkadot/types/interfaces/system';
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { ContractBillingInformation, ContractState, NodeContract } from 'substrate-tfgrid-ts-types/src/smartContractModule';
-import type { CertificationCodes, Entity, Farm, Node, PricingPolicy, StellarTransaction, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, NameRegistration, Node, PricingPolicy, StellarTransaction, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { ApiTypes } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/storage' {
@@ -99,6 +99,8 @@ declare module '@polkadot/api/types/storage' {
       contractIdByNodeIdAndHash: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: Bytes | string | Uint8Array) => Observable<u64>>;
       contracts: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<NodeContract>>;
       contractsToBillAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Vec<u64>>>;
+      nameRegistrationId: AugmentedQuery<ApiType, () => Observable<u64>>;
+      nameRegistrations: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<NameRegistration>>;
       nodeContracts: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: ContractState | 'Created' | 'Deleted' | 'OutOfFunds' | number | Uint8Array) => Observable<Vec<NodeContract>>>;
     };
     sudo: {
@@ -193,6 +195,9 @@ declare module '@polkadot/api/types/storage' {
       entityIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
       farmId: AugmentedQuery<ApiType, () => Observable<u32>>;
       farmIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
+      farmingPolicies: AugmentedQuery<ApiType, () => Observable<Vec<FarmingPolicy>>>;
+      farmingPolicyId: AugmentedQuery<ApiType, () => Observable<u32>>;
+      farmingPolicyIDsByCertificationType: AugmentedQuery<ApiType, (arg: CertificationType | 'Diy' | 'Certified' | number | Uint8Array) => Observable<Vec<u32>>>;
       farms: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Farm>>;
       nodeId: AugmentedQuery<ApiType, () => Observable<u32>>;
       nodeIdByTwinId: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<u32>>;
