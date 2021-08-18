@@ -50,7 +50,7 @@ import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Multisig, Timepoint } from '@polkadot/types/interfaces/utility';
 import type { VestingInfo } from '@polkadot/types/interfaces/vesting';
 import type { Consumption, ContractBill, ContractBillingInformation, ContractState, DiscountLevel, NodeContract } from 'substrate-tfgrid-ts-types/src/smartContractModule';
-import type { CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, FarmingPolicy, Location, NameRegistration, Node, PricingPolicy, Public, PublicConfig, PublicIP, Resources, StellarTransaction, Twin, U16F16, Unit } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, FarmingPolicy, Location, NameRegistration, Node, Policy, PricingPolicy, Public, PublicConfig, PublicIP, Resources, StellarTransaction, Twin, U16F16, Unit } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
 declare module '@polkadot/types/types/registry' {
   export interface InterfaceTypes {
@@ -1925,6 +1925,9 @@ declare module '@polkadot/types/types/registry' {
     PricingPolicy: PricingPolicy;
     'Option<PricingPolicy>': Option<PricingPolicy>;
     'Vec<PricingPolicy>': Vec<PricingPolicy>;
+    Policy: Policy;
+    'Option<Policy>': Option<Policy>;
+    'Vec<Policy>': Vec<Policy>;
     Unit: Unit;
     'Option<Unit>': Option<Unit>;
     'Vec<Unit>': Vec<Unit>;

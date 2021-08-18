@@ -105,16 +105,22 @@ export interface Node extends Struct {
   readonly farming_policy_id: u32;
 }
 
+/** @name Policy */
+export interface Policy extends Struct {
+  readonly value: u32;
+  readonly unit: Unit;
+}
+
 /** @name PricingPolicy */
 export interface PricingPolicy extends Struct {
   readonly version: u32;
   readonly id: u32;
   readonly name: Bytes;
   readonly unit: Unit;
-  readonly su: u32;
-  readonly cu: u32;
-  readonly nu: u32;
-  readonly ipu: u32;
+  readonly su: policy;
+  readonly cu: policy;
+  readonly nu: policy;
+  readonly ipu: policy;
   readonly foundation_account: AccountId;
   readonly certified_sales_account: AccountId;
 }
