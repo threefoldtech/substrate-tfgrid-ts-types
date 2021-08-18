@@ -117,10 +117,10 @@ export interface PricingPolicy extends Struct {
   readonly id: u32;
   readonly name: Bytes;
   readonly unit: Unit;
-  readonly su: policy;
-  readonly cu: policy;
-  readonly nu: policy;
-  readonly ipu: policy;
+  readonly su: Policy;
+  readonly cu: Policy;
+  readonly nu: Policy;
+  readonly ipu: Policy;
   readonly foundation_account: AccountId;
   readonly certified_sales_account: AccountId;
 }
