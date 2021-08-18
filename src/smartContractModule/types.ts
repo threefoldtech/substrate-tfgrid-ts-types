@@ -1,7 +1,7 @@
 // Auto-generated via `yarn polkadot-types-from-defs`, do not edit
 /* eslint-disable */
 
-import type { Bytes, Enum, Struct, Vec, u32, u64 } from '@polkadot/types';
+import type { Bytes, Enum, Struct, Vec, u128, u32, u64 } from '@polkadot/types';
 import type { PublicIP } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
 /** @name Consumption */
@@ -13,6 +13,14 @@ export interface Consumption extends Struct {
   readonly hru: u64;
   readonly mru: u64;
   readonly nru: u64;
+}
+
+/** @name ContractBill */
+export interface ContractBill extends Struct {
+  readonly contract_id: u64;
+  readonly timestamp: u64;
+  readonly discount_level: DiscountLevel;
+  readonly amount_billed: u128;
 }
 
 /** @name ContractBillingInformation */

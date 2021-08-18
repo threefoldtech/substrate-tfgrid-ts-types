@@ -49,7 +49,7 @@ import type { Bounty, BountyIndex, BountyStatus, BountyStatusActive, BountyStatu
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Multisig, Timepoint } from '@polkadot/types/interfaces/utility';
 import type { VestingInfo } from '@polkadot/types/interfaces/vesting';
-import type { Consumption, ContractBillingInformation, ContractState, DiscountLevel, NodeContract } from 'substrate-tfgrid-ts-types/src/smartContractModule';
+import type { Consumption, ContractBill, ContractBillingInformation, ContractState, DiscountLevel, NodeContract } from 'substrate-tfgrid-ts-types/src/smartContractModule';
 import type { CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, FarmingPolicy, Location, NameRegistration, Node, PricingPolicy, Public, PublicConfig, PublicIP, Resources, StellarTransaction, Twin, U16F16, Unit } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
 declare module '@polkadot/types/types/registry' {
@@ -1958,5 +1958,8 @@ declare module '@polkadot/types/types/registry' {
     DiscountLevel: DiscountLevel;
     'Option<DiscountLevel>': Option<DiscountLevel>;
     'Vec<DiscountLevel>': Vec<DiscountLevel>;
+    ContractBill: ContractBill;
+    'Option<ContractBill>': Option<ContractBill>;
+    'Vec<ContractBill>': Vec<ContractBill>;
   }
 }

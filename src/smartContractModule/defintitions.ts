@@ -43,5 +43,11 @@ export default {
         "Gold"
       ]
     },
+    "ContractBill": {
+      "contract_id": "u64",
+      "timestamp": "u64",
+      "discount_level": "DiscountLevel",
+      "amount_billed": "u128"
+    },
   }      
 };
