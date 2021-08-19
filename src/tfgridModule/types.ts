@@ -175,6 +175,7 @@ export interface Unit extends Enum {
   readonly isKilobytes: boolean;
   readonly isMegabytes: boolean;
   readonly isGigabytes: boolean;
+  readonly isTerrabytes: boolean;
 }
 
 /** @name VestingInfo */

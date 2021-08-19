@@ -107,7 +107,8 @@ export default {
           "Bytes",
           "Kilobytes",
           "Megabytes",
-          "Gigabytes"
+          "Gigabytes",
+          "Terrabytes"
         ]
       },
       "NameRegistration": {
