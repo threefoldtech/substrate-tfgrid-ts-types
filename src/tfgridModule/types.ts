@@ -36,8 +36,8 @@ export interface Entity extends Struct {
   readonly version: u32;
   readonly id: u32;
   readonly name: Bytes;
-  readonly country_id: u32;
-  readonly city_id: u32;
+  readonly country: Bytes;
+  readonly city: Bytes;
   readonly account_id: AccountId;
 }
 
@@ -55,8 +55,6 @@ export interface Farm extends Struct {
   readonly twin_id: u32;
   readonly pricing_policy_id: u32;
   readonly certification_type: CertificationType;
-  readonly country_id: u32;
-  readonly city_id: u32;
   readonly public_ips: Vec<PublicIP>;
 }
 
@@ -97,8 +95,8 @@ export interface Node extends Struct {
   readonly twin_id: u32;
   readonly resources: Resources;
   readonly location: Location;
-  readonly country_id: u32;
-  readonly city_id: u32;
+  readonly country: Bytes;
+  readonly city: Bytes;
   readonly public_config: Option<PublicConfig>;
   readonly uptime: u64;
   readonly created: u64;

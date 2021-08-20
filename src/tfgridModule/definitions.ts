@@ -9,8 +9,6 @@ export default {
         "twin_id": "u32",
         "pricing_policy_id": "u32",
         "certification_type": "CertificationType",
-        "country_id": "u32",
-        "city_id": "u32",
         "public_ips": "Vec<PublicIP>"
       },
       "PublicIP": {
@@ -22,8 +20,8 @@ export default {
         "version": "u32",
         "id": "u32",
         "name": "Vec<u8>",
-        "country_id": "u32",
-        "city_id": "u32",
+        "country": "Vec<u8>",
+        "city": "Vec<u8>",
         "account_id": "AccountId"
       },
       "Twin": {
@@ -44,8 +42,8 @@ export default {
         "twin_id": "u32",
         "resources": "Resources",
         "location": "Location",
-        "country_id": "u32",
-        "city_id": "u32",
+        "country": "Vec<u8>",
+        "city": "Vec<u8>",
         "public_config": "Option<PublicConfig>",
         "uptime": "u64",
         "created": "u64",
