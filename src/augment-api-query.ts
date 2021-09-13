@@ -198,6 +198,7 @@ declare module '@polkadot/api/types/storage' {
       farmingPolicies: AugmentedQuery<ApiType, () => Observable<Vec<FarmingPolicy>>>;
       farmingPolicyId: AugmentedQuery<ApiType, () => Observable<u32>>;
       farmingPolicyIDsByCertificationType: AugmentedQuery<ApiType, (arg: CertificationType | 'Diy' | 'Certified' | number | Uint8Array) => Observable<Vec<u32>>>;
+      farmPayoutV2AddressByFarmId: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Bytes>>;
       farms: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Farm>>;
       nodeId: AugmentedQuery<ApiType, () => Observable<u32>>;
       nodeIdByTwinId: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<u32>>;

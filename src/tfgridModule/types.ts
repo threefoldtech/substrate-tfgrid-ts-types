@@ -132,6 +132,7 @@ export interface PublicConfig extends Struct {
   readonly ipv6: Bytes;
   readonly gw4: Bytes;
   readonly gw6: Bytes;
+  readonly domain: Bytes;
 }
 
 /** @name PublicIP */
