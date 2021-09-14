@@ -2,16 +2,28 @@
 
 export default {
   types: {
-    "NodeContract": {
-      "version": "u32",
+    "Contract": {
+      "version": " u32",
+      "state": "ContractState",
       "contract_id": "u64",
       "twin_id": "u32",
+      "contract_type": "ContractData"
+    },
+    "ContractData": {
+      "_enum": {
+        "NodeContract": "NodeContract",
+        "NameContract": "NameContract"
+      }
+    },
+    "NodeContract": {
       "node_id": "u32",
-      "deploy_mentdata": "Vec<u8>",
+      "deployment_data": "Vec<u8>",
       "deployment_hash": "Vec<u8>",
       "public_ips": "u32",
-      "state": "ContractState",
       "public_ips_list": "Vec<PublicIP>"
+    },
+    "NameContract": {
+      "name": "Vec<u8>"
     },
     "Consumption": {
       "contract_id": "u64",

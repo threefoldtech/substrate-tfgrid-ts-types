@@ -119,6 +119,8 @@ export interface PricingPolicy extends Struct {
   readonly cu: Policy;
   readonly nu: Policy;
   readonly ipu: Policy;
+  readonly unique_name: Policy;
+  readonly domain_name: Policy;
   readonly foundation_account: AccountId;
   readonly certified_sales_account: AccountId;
 }

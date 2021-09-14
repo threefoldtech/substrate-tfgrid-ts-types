@@ -94,6 +94,8 @@ export default {
         "cu": "Policy",
         "nu": "Policy",
         "ipu": "Policy",
+        "unique_name": "Policy",
+        "domain_name": "Policy",
         "foundation_account": "AccountId",
         "certified_sales_account": "AccountId"
       },

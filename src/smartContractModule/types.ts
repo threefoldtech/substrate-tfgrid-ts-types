@@ -15,6 +15,15 @@ export interface Consumption extends Struct {
   readonly nru: u64;
 }
 
+/** @name Contract */
+export interface Contract extends Struct {
+  readonly version: u32;
+  readonly state: ContractState;
+  readonly contract_id: u64;
+  readonly twin_id: u32;
+  readonly contract_type: ContractData;
+}
+
 /** @name ContractBill */
 export interface ContractBill extends Struct {
   readonly contract_id: u64;
@@ -28,6 +37,14 @@ export interface ContractBillingInformation extends Struct {
   readonly previous_nu_reported: u64;
   readonly last_updated: u64;
   readonly amount_unbilled: u64;
+}
+
+/** @name ContractData */
+export interface ContractData extends Enum {
+  readonly isNodeContract: boolean;
+  readonly asNodeContract: NodeContract;
+  readonly isNameContract: boolean;
+  readonly asNameContract: NameContract;
 }
 
 /** @name ContractState */
@@ -46,16 +63,17 @@ export interface DiscountLevel extends Enum {
   readonly isGold: boolean;
 }
 
+/** @name NameContract */
+export interface NameContract extends Struct {
+  readonly name: Bytes;
+}
+
 /** @name NodeContract */
 export interface NodeContract extends Struct {
-  readonly version: u32;
-  readonly contract_id: u64;
-  readonly twin_id: u32;
   readonly node_id: u32;
-  readonly deploy_mentdata: Bytes;
+  readonly deployment_data: Bytes;
   readonly deployment_hash: Bytes;
   readonly public_ips: u32;
-  readonly state: ContractState;
   readonly public_ips_list: Vec<PublicIP>;
 }
 

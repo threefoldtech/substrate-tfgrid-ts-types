@@ -10,8 +10,8 @@ import type { Scheduled, TaskAddress } from '@polkadot/types/interfaces/schedule
 import type { SessionIndex } from '@polkadot/types/interfaces/session';
 import type { AccountInfo, DigestOf, EventIndex, EventRecord, LastRuntimeUpgradeInfo, Phase } from '@polkadot/types/interfaces/system';
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
-import type { ContractBillingInformation, ContractState, NodeContract } from 'substrate-tfgrid-ts-types/src/smartContractModule';
-import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, NameRegistration, Node, PricingPolicy, StellarTransaction, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { Contract, ContractBillingInformation, ContractState } from 'substrate-tfgrid-ts-types/src/smartContractModule';
+import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, StellarTransaction, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { ApiTypes } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/storage' {
@@ -96,12 +96,11 @@ declare module '@polkadot/api/types/storage' {
     smartContractModule: {
       contractBillingInformationById: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<ContractBillingInformation>>;
       contractId: AugmentedQuery<ApiType, () => Observable<u64>>;
+      contractIdByNameRegistration: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u64>>;
       contractIdByNodeIdAndHash: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: Bytes | string | Uint8Array) => Observable<u64>>;
-      contracts: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<NodeContract>>;
+      contracts: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Contract>>;
       contractsToBillAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Vec<u64>>>;
-      nameRegistrationId: AugmentedQuery<ApiType, () => Observable<u64>>;
-      nameRegistrations: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<NameRegistration>>;
-      nodeContracts: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: ContractState | 'Created' | 'Deleted' | 'OutOfFunds' | number | Uint8Array) => Observable<Vec<NodeContract>>>;
+      nodeContracts: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: ContractState | 'Created' | 'Deleted' | 'OutOfFunds' | number | Uint8Array) => Observable<Vec<Contract>>>;
     };
     sudo: {
       /**
