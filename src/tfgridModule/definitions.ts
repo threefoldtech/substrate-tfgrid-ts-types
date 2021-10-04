@@ -47,7 +47,8 @@ export default {
         "public_config": "Option<PublicConfig>",
         "uptime": "u64",
         "created": "u64",
-        "farming_policy_id": "u32"
+        "farming_policy_id": "u32",
+        "interfaces": "Vec<Interface>"
       },
       "PublicConfig": {
         "ipv4": "Vec<u8>",
@@ -65,6 +66,11 @@ export default {
         "sru": "u64",
         "cru": "u64",
         "mru": "u64"
+      },
+      "Interface": {
+        "name": "Vec<u8>",
+        "mac": "Vec<u8>",
+        "ips": "Vec<u8>"
       },
       "CertificationType": {
         "_enum": [

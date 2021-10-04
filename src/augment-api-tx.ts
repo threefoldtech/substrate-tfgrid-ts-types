@@ -378,11 +378,17 @@ declare module '@polkadot/api/types/submittable' {
       updateTwin: AugmentedSubmittable<(ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     tftBridgeModule: {
-      addValidator: AugmentedSubmittable<(target: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
-      proposeTransaction: AugmentedSubmittable<(transaction: Bytes | string | Uint8Array, target: AccountId | string | Uint8Array, amount: BalanceOf | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
-      removeValidator: AugmentedSubmittable<(target: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      addBridgeValidator: AugmentedSubmittable<(target: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      createRefundTransactionOrAddSig: AugmentedSubmittable<(txHash: Bytes | string | Uint8Array, target: Bytes | string | Uint8Array, amount: u64 | AnyNumber | Uint8Array, signature: Bytes | string | Uint8Array, stellarPubKey: Bytes | string | Uint8Array, sequenceNumber: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      proposeBurnTransactionOrAddSig: AugmentedSubmittable<(transactionId: u64 | AnyNumber | Uint8Array, target: AccountId | string | Uint8Array, amount: u64 | AnyNumber | Uint8Array, signature: Bytes | string | Uint8Array, stellarPubKey: Bytes | string | Uint8Array, sequenceNumber: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      proposeOrVoteMintTransaction: AugmentedSubmittable<(transaction: Bytes | string | Uint8Array, target: AccountId | string | Uint8Array, amount: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      removeBridgeValidator: AugmentedSubmittable<(target: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      setBurnFee: AugmentedSubmittable<(amount: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      setBurnTransactionExecuted: AugmentedSubmittable<(transactionId: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      setDepositFee: AugmentedSubmittable<(amount: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      setFeeAccount: AugmentedSubmittable<(target: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      setRefundTransactionExecuted: AugmentedSubmittable<(txHash: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       swapToStellar: AugmentedSubmittable<(target: AccountId | string | Uint8Array, amount: BalanceOf | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
-      voteTransaction: AugmentedSubmittable<(transaction: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     timestamp: {
       /**

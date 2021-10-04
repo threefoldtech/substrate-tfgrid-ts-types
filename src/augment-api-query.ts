@@ -11,7 +11,7 @@ import type { SessionIndex } from '@polkadot/types/interfaces/session';
 import type { AccountInfo, DigestOf, EventIndex, EventRecord, LastRuntimeUpgradeInfo, Phase } from '@polkadot/types/interfaces/system';
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Contract, ContractBillingInformation, ContractState } from 'substrate-tfgrid-ts-types/src/smartContractModule';
-import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, StellarTransaction, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { ApiTypes } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/storage' {
@@ -210,10 +210,16 @@ declare module '@polkadot/api/types/storage' {
       twins: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Twin>>;
     };
     tftBridgeModule: {
-      executedTransactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<StellarTransaction>>;
-      expiredTransactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<StellarTransaction>>;
-      transactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<StellarTransaction>>;
-      transactionValidators: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<Vec<AccountId>>>;
+      burnFee: AugmentedQuery<ApiType, () => Observable<u64>>;
+      burnTransactionId: AugmentedQuery<ApiType, () => Observable<u64>>;
+      burnTransactions: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<BurnTransaction>>;
+      depositFee: AugmentedQuery<ApiType, () => Observable<u64>>;
+      executedBurnTransactions: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<BurnTransaction>>;
+      executedMintTransactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<MintTransaction>>;
+      executedRefundTransactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<RefundTransaction>>;
+      feeAccount: AugmentedQuery<ApiType, () => Observable<AccountId>>;
+      mintTransactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<MintTransaction>>;
+      refundTransactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<RefundTransaction>>;
       validators: AugmentedQuery<ApiType, () => Observable<Vec<AccountId>>>;
     };
     timestamp: {

@@ -71,6 +71,13 @@ export interface FarmingPolicy extends Struct {
   readonly certification_type: CertificationType;
 }
 
+/** @name Interface */
+export interface Interface extends Struct {
+  readonly name: Bytes;
+  readonly mac: Bytes;
+  readonly ips: Bytes;
+}
+
 /** @name Location */
 export interface Location extends Struct {
   readonly longitude: Bytes;
@@ -101,6 +108,7 @@ export interface Node extends Struct {
   readonly uptime: u64;
   readonly created: u64;
   readonly farming_policy_id: u32;
+  readonly interfaces: Vec<Interface>;
 }
 
 /** @name Policy */
