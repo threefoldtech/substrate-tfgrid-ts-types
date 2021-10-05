@@ -75,7 +75,7 @@ export interface FarmingPolicy extends Struct {
 export interface Interface extends Struct {
   readonly name: Bytes;
   readonly mac: Bytes;
-  readonly ips: Bytes;
+  readonly ips: Vec<Bytes>;
 }
 
 /** @name Location */

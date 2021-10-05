@@ -70,7 +70,7 @@ export default {
       "Interface": {
         "name": "Vec<u8>",
         "mac": "Vec<u8>",
-        "ips": "Vec<u8>"
+        "ips": "Vec<Vec<u8>>"
       },
       "CertificationType": {
         "_enum": [
