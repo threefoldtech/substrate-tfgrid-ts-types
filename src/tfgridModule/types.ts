@@ -105,7 +105,6 @@ export interface Node extends Struct {
   readonly country: Bytes;
   readonly city: Bytes;
   readonly public_config: Option<PublicConfig>;
-  readonly uptime: u64;
   readonly created: u64;
   readonly farming_policy_id: u32;
   readonly interfaces: Vec<Interface>;
@@ -164,6 +163,12 @@ export interface Resources extends Struct {
 export interface StellarTransaction extends Struct {
   readonly amount: Balance;
   readonly target: MultiAddress;
+}
+
+/** @name StorageVersion */
+export interface StorageVersion extends Enum {
+  readonly isV1Struct: boolean;
+  readonly isV2Struct: boolean;
 }
 
 /** @name Twin */

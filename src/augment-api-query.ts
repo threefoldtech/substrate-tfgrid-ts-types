@@ -11,7 +11,7 @@ import type { SessionIndex } from '@polkadot/types/interfaces/session';
 import type { AccountInfo, DigestOf, EventIndex, EventRecord, LastRuntimeUpgradeInfo, Phase } from '@polkadot/types/interfaces/system';
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Contract, ContractBillingInformation, ContractState } from 'substrate-tfgrid-ts-types/src/smartContractModule';
-import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, StorageVersion, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { ApiTypes } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/storage' {
@@ -202,6 +202,10 @@ declare module '@polkadot/api/types/storage' {
       nodeId: AugmentedQuery<ApiType, () => Observable<u32>>;
       nodeIdByTwinId: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<u32>>;
       nodes: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Node>>;
+      /**
+       * The current version of the pallet.
+       **/
+      palletVersion: AugmentedQuery<ApiType, () => Observable<StorageVersion>>;
       pricingPolicies: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<PricingPolicy>>;
       pricingPolicyId: AugmentedQuery<ApiType, () => Observable<u32>>;
       pricingPolicyIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;

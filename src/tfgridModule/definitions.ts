@@ -45,7 +45,6 @@ export default {
         "country": "Vec<u8>",
         "city": "Vec<u8>",
         "public_config": "Option<PublicConfig>",
-        "uptime": "u64",
         "created": "u64",
         "farming_policy_id": "u32",
         "interfaces": "Vec<Interface>"
@@ -149,7 +148,13 @@ export default {
       "StellarTransaction": {
         "amount": "Balance",
         "target": "MultiAddress"
-      }
+      },
+      "StorageVersion": {
+        "_enum": [
+          "V1Struct",
+          "V2Struct"
+        ]
+      },
     }      
   };
   

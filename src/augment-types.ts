@@ -50,7 +50,7 @@ import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Multisig, Timepoint } from '@polkadot/types/interfaces/utility';
 import type { VestingInfo } from '@polkadot/types/interfaces/vesting';
 import type { Consumption, Contract, ContractBill, ContractBillingInformation, ContractData, ContractState, DiscountLevel, NameContract, NodeContract } from 'substrate-tfgrid-ts-types/src/smartContractModule';
-import type { CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, FarmingPolicy, Interface, Location, NameRegistration, Node, Policy, PricingPolicy, Public, PublicConfig, PublicIP, Resources, StellarTransaction, Twin, U16F16, Unit } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, FarmingPolicy, Interface, Location, NameRegistration, Node, Policy, PricingPolicy, Public, PublicConfig, PublicIP, Resources, StellarTransaction, StorageVersion, Twin, U16F16, Unit } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
 declare module '@polkadot/types/types/registry' {
   export interface InterfaceTypes {
@@ -1949,6 +1949,9 @@ declare module '@polkadot/types/types/registry' {
     StellarTransaction: StellarTransaction;
     'Option<StellarTransaction>': Option<StellarTransaction>;
     'Vec<StellarTransaction>': Vec<StellarTransaction>;
+    StorageVersion: StorageVersion;
+    'Option<StorageVersion>': Option<StorageVersion>;
+    'Vec<StorageVersion>': Vec<StorageVersion>;
     Contract: Contract;
     'Option<Contract>': Option<Contract>;
     'Vec<Contract>': Vec<Contract>;
