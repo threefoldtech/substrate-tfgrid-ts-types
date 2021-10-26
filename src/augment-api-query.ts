@@ -5,13 +5,14 @@ import type { Bytes, Option, Vec, bool, u32, u64 } from '@polkadot/types';
 import type { AnyNumber, ITuple, Observable } from '@polkadot/types/types';
 import type { AccountData, BalanceLock } from '@polkadot/types/interfaces/balances';
 import type { SetId, StoredPendingChange, StoredState } from '@polkadot/types/interfaces/grandpa';
-import type { AccountId, Balance, BlockNumber, Hash, Moment, Releases } from '@polkadot/types/interfaces/runtime';
+import type { AccountId, Balance, BlockNumber, Hash, KeyTypeId, Moment, Releases, ValidatorId } from '@polkadot/types/interfaces/runtime';
 import type { Scheduled, TaskAddress } from '@polkadot/types/interfaces/scheduler';
-import type { SessionIndex } from '@polkadot/types/interfaces/session';
+import type { Keys, SessionIndex } from '@polkadot/types/interfaces/session';
 import type { AccountInfo, DigestOf, EventIndex, EventRecord, LastRuntimeUpgradeInfo, Phase } from '@polkadot/types/interfaces/system';
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Contract, ContractBillingInformation, ContractState } from 'substrate-tfgrid-ts-types/src/smartContractModule';
-import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, StorageVersion, Twin } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, StorageVersion, Twin, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { Burn, BurnTransaction, MintTransaction, RefundTransaction } from 'substrate-tfgrid-ts-types/src/tftBridgeModule';
 import type { ApiTypes } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/storage' {
@@ -38,6 +39,9 @@ declare module '@polkadot/api/types/storage' {
        * The total units issued in the system.
        **/
       totalIssuance: AugmentedQuery<ApiType, () => Observable<Balance>>;
+    };
+    burningModule: {
+      burns: AugmentedQuery<ApiType, () => Observable<Vec<Burn>>>;
     };
     grandpa: {
       /**
@@ -92,6 +96,40 @@ declare module '@polkadot/api/types/storage' {
        * New networks start with last version.
        **/
       storageVersion: AugmentedQuery<ApiType, () => Observable<Releases>>;
+    };
+    session: {
+      /**
+       * Current index of the session.
+       **/
+      currentIndex: AugmentedQuery<ApiType, () => Observable<SessionIndex>>;
+      /**
+       * Indices of disabled validators.
+       * 
+       * The set is cleared when `on_session_ending` returns a new set of identities.
+       **/
+      disabledValidators: AugmentedQuery<ApiType, () => Observable<Vec<u32>>>;
+      /**
+       * The owner of a key. The key is the `KeyTypeId` + the encoded key.
+       **/
+      keyOwner: AugmentedQuery<ApiType, (arg: ITuple<[KeyTypeId, Bytes]> | [KeyTypeId | AnyNumber | Uint8Array, Bytes | string | Uint8Array]) => Observable<Option<ValidatorId>>>;
+      /**
+       * The next session keys for a validator.
+       **/
+      nextKeys: AugmentedQuery<ApiType, (arg: ValidatorId | string | Uint8Array) => Observable<Option<Keys>>>;
+      /**
+       * True if the underlying economic identities or weighting behind the validators
+       * has changed in the queued validator set.
+       **/
+      queuedChanged: AugmentedQuery<ApiType, () => Observable<bool>>;
+      /**
+       * The queued keys for the next session. When the next session begins, these keys
+       * will be used to determine the validator's session keys.
+       **/
+      queuedKeys: AugmentedQuery<ApiType, () => Observable<Vec<ITuple<[ValidatorId, Keys]>>>>;
+      /**
+       * The current set of validators.
+       **/
+      validators: AugmentedQuery<ApiType, () => Observable<Vec<ValidatorId>>>;
     };
     smartContractModule: {
       contractBillingInformationById: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<ContractBillingInformation>>;
@@ -226,6 +264,14 @@ declare module '@polkadot/api/types/storage' {
       refundTransactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<RefundTransaction>>;
       validators: AugmentedQuery<ApiType, () => Observable<Vec<AccountId>>>;
     };
+    tftPriceModule: {
+      averageTftPrice: AugmentedQuery<ApiType, () => Observable<U16F16>>;
+      bufferRange: AugmentedQuery<ApiType, () => Observable<ITuple<[BufferIndex, BufferIndex]>>>;
+      lastBlockAvgSet: AugmentedQuery<ApiType, () => Observable<BlockNumber>>;
+      lastBlockSet: AugmentedQuery<ApiType, () => Observable<BlockNumber>>;
+      tftPrice: AugmentedQuery<ApiType, () => Observable<U16F16>>;
+      tftPriceHistory: AugmentedQuery<ApiType, (arg: BufferIndex | null) => Observable<ValueStruct>>;
+    };
     timestamp: {
       /**
        * Did the timestamp get updated in this block?
@@ -239,6 +285,10 @@ declare module '@polkadot/api/types/storage' {
     transactionPayment: {
       nextFeeMultiplier: AugmentedQuery<ApiType, () => Observable<Multiplier>>;
       storageVersion: AugmentedQuery<ApiType, () => Observable<Releases>>;
+    };
+    validatorSet: {
+      flag: AugmentedQuery<ApiType, () => Observable<Option<bool>>>;
+      validators: AugmentedQuery<ApiType, () => Observable<Option<Vec<AccountId>>>>;
     };
   }
 

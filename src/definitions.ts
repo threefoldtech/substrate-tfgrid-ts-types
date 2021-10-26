@@ -4,3 +4,4 @@
 
 export { default as tfgridModule } from './tfgridModule/definitions';
 export { default as smartContractModule } from './smartContractModule/defintitions';
+export { default as tftBridgeModule } from './tftBridgeModule/definitions';

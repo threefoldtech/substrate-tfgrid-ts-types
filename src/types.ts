@@ -3,3 +3,4 @@
 
 export * from './tfgridModule/types';
 export * from './smartContractModule/types';
+export * from './tftBridgeModule/types';
