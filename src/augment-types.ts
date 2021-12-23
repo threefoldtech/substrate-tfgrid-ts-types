@@ -49,7 +49,7 @@ import type { Bounty, BountyIndex, BountyStatus, BountyStatusActive, BountyStatu
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Multisig, Timepoint } from '@polkadot/types/interfaces/utility';
 import type { VestingInfo } from '@polkadot/types/interfaces/vesting';
-import type { Consumption, Contract, ContractBill, ContractBillingInformation, ContractData, ContractState, DiscountLevel, NameContract, NodeContract } from 'substrate-tfgrid-ts-types/src/smartContractModule';
+import type { Cause, Consumption, Contract, ContractBill, ContractBillingInformation, ContractData, ContractState, DiscountLevel, NameContract, NodeContract } from 'substrate-tfgrid-ts-types/src/smartContractModule';
 import type { CertificationCodeType, CertificationCodes, CertificationType, Entity, EntityProof, Farm, FarmingPolicy, Interface, Location, NameRegistration, Node, Policy, PricingPolicy, Public, PublicConfig, PublicIP, Resources, StellarTransaction, StorageVersion, Twin, U16F16, Unit } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { Burn, BurnTransaction, MintTransaction, RefundTransaction, StellarSignature } from 'substrate-tfgrid-ts-types/src/tftBridgeModule';
 
@@ -1974,6 +1974,9 @@ declare module '@polkadot/types/types/registry' {
     ContractState: ContractState;
     'Option<ContractState>': Option<ContractState>;
     'Vec<ContractState>': Vec<ContractState>;
+    Cause: Cause;
+    'Option<Cause>': Option<Cause>;
+    'Vec<Cause>': Vec<Cause>;
     DiscountLevel: DiscountLevel;
     'Option<DiscountLevel>': Option<DiscountLevel>;
     'Vec<DiscountLevel>': Vec<DiscountLevel>;

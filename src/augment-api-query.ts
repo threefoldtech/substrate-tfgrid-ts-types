@@ -3,20 +3,37 @@
 
 import type { Bytes, Option, Vec, bool, u32, u64 } from '@polkadot/types';
 import type { AnyNumber, ITuple, Observable } from '@polkadot/types/types';
+import type { UncleEntryItem } from '@polkadot/types/interfaces/authorship';
 import type { AccountData, BalanceLock } from '@polkadot/types/interfaces/balances';
+import type { Votes } from '@polkadot/types/interfaces/collective';
+import type { Proposal } from '@polkadot/types/interfaces/democracy';
 import type { SetId, StoredPendingChange, StoredState } from '@polkadot/types/interfaces/grandpa';
 import type { AccountId, Balance, BlockNumber, Hash, KeyTypeId, Moment, Releases, ValidatorId } from '@polkadot/types/interfaces/runtime';
 import type { Scheduled, TaskAddress } from '@polkadot/types/interfaces/scheduler';
 import type { Keys, SessionIndex } from '@polkadot/types/interfaces/session';
 import type { AccountInfo, DigestOf, EventIndex, EventRecord, LastRuntimeUpgradeInfo, Phase } from '@polkadot/types/interfaces/system';
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
-import type { Contract, ContractBillingInformation, ContractState } from 'substrate-tfgrid-ts-types/src/smartContractModule';
+import type { Contract, ContractBillingInformation } from 'substrate-tfgrid-ts-types/src/smartContractModule';
 import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, StorageVersion, Twin, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { Burn, BurnTransaction, MintTransaction, RefundTransaction } from 'substrate-tfgrid-ts-types/src/tftBridgeModule';
 import type { ApiTypes } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/storage' {
   export interface AugmentedQueries<ApiType> {
+    authorship: {
+      /**
+       * Author of current block.
+       **/
+      author: AugmentedQuery<ApiType, () => Observable<Option<AccountId>>>;
+      /**
+       * Whether uncles were already set in this block.
+       **/
+      didSetUncles: AugmentedQuery<ApiType, () => Observable<bool>>;
+      /**
+       * Uncles
+       **/
+      uncles: AugmentedQuery<ApiType, () => Observable<Vec<UncleEntryItem>>>;
+    };
     balances: {
       /**
        * The balance of an account.
@@ -42,6 +59,32 @@ declare module '@polkadot/api/types/storage' {
     };
     burningModule: {
       burns: AugmentedQuery<ApiType, () => Observable<Vec<Burn>>>;
+    };
+    council: {
+      /**
+       * The current members of the collective. This is stored sorted (just by value).
+       **/
+      members: AugmentedQuery<ApiType, () => Observable<Vec<AccountId>>>;
+      /**
+       * The prime member that helps determine the default vote behavior in case of absentations.
+       **/
+      prime: AugmentedQuery<ApiType, () => Observable<Option<AccountId>>>;
+      /**
+       * Proposals so far.
+       **/
+      proposalCount: AugmentedQuery<ApiType, () => Observable<u32>>;
+      /**
+       * Actual proposal for a given hash, if it's current.
+       **/
+      proposalOf: AugmentedQuery<ApiType, (arg: Hash | string | Uint8Array) => Observable<Option<Proposal>>>;
+      /**
+       * The hashes of the active proposals.
+       **/
+      proposals: AugmentedQuery<ApiType, () => Observable<Vec<Hash>>>;
+      /**
+       * Votes on a given proposal, if it is ongoing.
+       **/
+      voting: AugmentedQuery<ApiType, (arg: Hash | string | Uint8Array) => Observable<Option<Votes>>>;
     };
     grandpa: {
       /**
@@ -132,13 +175,17 @@ declare module '@polkadot/api/types/storage' {
       validators: AugmentedQuery<ApiType, () => Observable<Vec<ValidatorId>>>;
     };
     smartContractModule: {
+      activeNodeContracts: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Vec<u64>>>;
       contractBillingInformationById: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<ContractBillingInformation>>;
       contractId: AugmentedQuery<ApiType, () => Observable<u64>>;
       contractIdByNameRegistration: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u64>>;
       contractIdByNodeIdAndHash: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: Bytes | string | Uint8Array) => Observable<u64>>;
       contracts: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Contract>>;
       contractsToBillAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Vec<u64>>>;
-      nodeContracts: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: ContractState | 'Created' | 'Deleted' | 'OutOfFunds' | number | Uint8Array) => Observable<Vec<Contract>>>;
+      /**
+       * The current version of the pallet.
+       **/
+      palletVersion: AugmentedQuery<ApiType, () => Observable<PalletStorageVersion>>;
     };
     sudo: {
       /**
@@ -251,8 +298,10 @@ declare module '@polkadot/api/types/storage' {
       twinIdByAccountId: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<u32>>;
       twins: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Twin>>;
     };
+    tfkvStore: {
+      tfkvStore: AugmentedQueryDoubleMap<ApiType, (key1: AccountId | string | Uint8Array, key2: Bytes | string | Uint8Array) => Observable<Bytes>>;
+    };
     tftBridgeModule: {
-      burnFee: AugmentedQuery<ApiType, () => Observable<u64>>;
       burnTransactionId: AugmentedQuery<ApiType, () => Observable<u64>>;
       burnTransactions: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<BurnTransaction>>;
       depositFee: AugmentedQuery<ApiType, () => Observable<u64>>;
@@ -263,6 +312,7 @@ declare module '@polkadot/api/types/storage' {
       mintTransactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<MintTransaction>>;
       refundTransactions: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<RefundTransaction>>;
       validators: AugmentedQuery<ApiType, () => Observable<Vec<AccountId>>>;
+      withdrawFee: AugmentedQuery<ApiType, () => Observable<u64>>;
     };
     tftPriceModule: {
       averageTftPrice: AugmentedQuery<ApiType, () => Observable<U16F16>>;

@@ -4,6 +4,12 @@
 import type { Bytes, Enum, Struct, Vec, u128, u32, u64 } from '@polkadot/types';
 import type { PublicIP } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
+/** @name Cause */
+export interface Cause extends Enum {
+  readonly isCanceledByUser: boolean;
+  readonly isOutOfFunds: boolean;
+}
+
 /** @name Consumption */
 export interface Consumption extends Struct {
   readonly contract_id: u64;
@@ -51,7 +57,7 @@ export interface ContractData extends Enum {
 export interface ContractState extends Enum {
   readonly isCreated: boolean;
   readonly isDeleted: boolean;
-  readonly isOutOfFunds: boolean;
+  readonly asDeleted: Cause;
 }
 
 /** @name DiscountLevel */

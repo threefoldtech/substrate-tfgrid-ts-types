@@ -40,9 +40,14 @@ export default {
       "amount_unbilled": "u64"
     },
     "ContractState": {
+      "_enum": {
+        "Created": null,
+        "Deleted": "Cause"
+      }
+    },
+    "Cause": {
       "_enum": [
-        "Created",
-        "Deleted",
+        "CanceledByUser",
         "OutOfFunds"
       ]
     },

@@ -1,11 +1,13 @@
 // Auto-generated via `yarn polkadot-types-from-chain`, do not edit
 /* eslint-disable */
 
-import type { Bytes, Compact, Option, Vec, u32, u64 } from '@polkadot/types';
+import type { Bytes, Compact, Option, Vec, bool, u32, u64 } from '@polkadot/types';
 import type { AnyNumber } from '@polkadot/types/types';
+import type { MemberCount, ProposalIndex } from '@polkadot/types/interfaces/collective';
+import type { Proposal } from '@polkadot/types/interfaces/democracy';
 import type { Extrinsic } from '@polkadot/types/interfaces/extrinsics';
 import type { GrandpaEquivocationProof, KeyOwnerProof } from '@polkadot/types/interfaces/grandpa';
-import type { AccountId, Balance, BalanceOf, BlockNumber, Call, ChangesTrieConfiguration, KeyValue, LookupSource, Moment, Perbill, Weight } from '@polkadot/types/interfaces/runtime';
+import type { AccountId, Balance, BalanceOf, BlockNumber, Call, ChangesTrieConfiguration, Hash, Header, KeyValue, LookupSource, Moment, Perbill, Weight } from '@polkadot/types/interfaces/runtime';
 import type { Period, Priority } from '@polkadot/types/interfaces/scheduler';
 import type { Keys } from '@polkadot/types/interfaces/session';
 import type { Key } from '@polkadot/types/interfaces/system';
@@ -15,6 +17,12 @@ import type { ApiTypes, SubmittableExtrinsic } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/submittable' {
   export interface AugmentedSubmittables<ApiType> {
+    authorship: {
+      /**
+       * Provide a set of uncles.
+       **/
+      setUncles: AugmentedSubmittable<(newUncles: Vec<Header> | (Header | { parentHash?: any; number?: any; stateRoot?: any; extrinsicsRoot?: any; digest?: any } | string | Uint8Array)[]) => SubmittableExtrinsic<ApiType>>;
+    };
     balances: {
       /**
        * Exactly as `transfer`, except the origin must be root and the source account may be
@@ -94,6 +102,144 @@ declare module '@polkadot/api/types/submittable' {
     burningModule: {
       burnTft: AugmentedSubmittable<(amount: BalanceOf | AnyNumber | Uint8Array, message: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
+    council: {
+      /**
+       * Close a vote that is either approved, disapproved or whose voting period has ended.
+       * 
+       * May be called by any signed account in order to finish voting and close the proposal.
+       * 
+       * If called before the end of the voting period it will only close the vote if it is
+       * has enough votes to be approved or disapproved.
+       * 
+       * If called after the end of the voting period abstentions are counted as rejections
+       * unless there is a prime member set and the prime member cast an approval.
+       * 
+       * If the close operation completes successfully with disapproval, the transaction fee will
+       * be waived. Otherwise execution of the approved operation will be charged to the caller.
+       * 
+       * + `proposal_weight_bound`: The maximum amount of weight consumed by executing the closed proposal.
+       * + `length_bound`: The upper bound for the length of the proposal in storage. Checked via
+       * `storage::read` so it is `size_of::<u32>() == 4` larger than the pure length.
+       * 
+       * # <weight>
+       * ## Weight
+       * - `O(B + M + P1 + P2)` where:
+       * - `B` is `proposal` size in bytes (length-fee-bounded)
+       * - `M` is members-count (code- and governance-bounded)
+       * - `P1` is the complexity of `proposal` preimage.
+       * - `P2` is proposal-count (code-bounded)
+       * - DB:
+       * - 2 storage reads (`Members`: codec `O(M)`, `Prime`: codec `O(1)`)
+       * - 3 mutations (`Voting`: codec `O(M)`, `ProposalOf`: codec `O(B)`, `Proposals`: codec `O(P2)`)
+       * - any mutations done while executing `proposal` (`P1`)
+       * - up to 3 events
+       * # </weight>
+       **/
+      close: AugmentedSubmittable<(proposalHash: Hash | string | Uint8Array, index: Compact<ProposalIndex> | AnyNumber | Uint8Array, proposalWeightBound: Compact<Weight> | AnyNumber | Uint8Array, lengthBound: Compact<u32> | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Disapprove a proposal, close, and remove it from the system, regardless of its current state.
+       * 
+       * Must be called by the Root origin.
+       * 
+       * Parameters:
+       * * `proposal_hash`: The hash of the proposal that should be disapproved.
+       * 
+       * # <weight>
+       * Complexity: O(P) where P is the number of max proposals
+       * DB Weight:
+       * * Reads: Proposals
+       * * Writes: Voting, Proposals, ProposalOf
+       * # </weight>
+       **/
+      disapproveProposal: AugmentedSubmittable<(proposalHash: Hash | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Dispatch a proposal from a member using the `Member` origin.
+       * 
+       * Origin must be a member of the collective.
+       * 
+       * # <weight>
+       * ## Weight
+       * - `O(M + P)` where `M` members-count (code-bounded) and `P` complexity of dispatching `proposal`
+       * - DB: 1 read (codec `O(M)`) + DB access of `proposal`
+       * - 1 event
+       * # </weight>
+       **/
+      execute: AugmentedSubmittable<(proposal: Proposal | { callIndex?: any; args?: any } | string | Uint8Array, lengthBound: Compact<u32> | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Add a new proposal to either be voted on or executed directly.
+       * 
+       * Requires the sender to be member.
+       * 
+       * `threshold` determines whether `proposal` is executed directly (`threshold < 2`)
+       * or put up for voting.
+       * 
+       * # <weight>
+       * ## Weight
+       * - `O(B + M + P1)` or `O(B + M + P2)` where:
+       * - `B` is `proposal` size in bytes (length-fee-bounded)
+       * - `M` is members-count (code- and governance-bounded)
+       * - branching is influenced by `threshold` where:
+       * - `P1` is proposal execution complexity (`threshold < 2`)
+       * - `P2` is proposals-count (code-bounded) (`threshold >= 2`)
+       * - DB:
+       * - 1 storage read `is_member` (codec `O(M)`)
+       * - 1 storage read `ProposalOf::contains_key` (codec `O(1)`)
+       * - DB accesses influenced by `threshold`:
+       * - EITHER storage accesses done by `proposal` (`threshold < 2`)
+       * - OR proposal insertion (`threshold <= 2`)
+       * - 1 storage mutation `Proposals` (codec `O(P2)`)
+       * - 1 storage mutation `ProposalCount` (codec `O(1)`)
+       * - 1 storage write `ProposalOf` (codec `O(B)`)
+       * - 1 storage write `Voting` (codec `O(M)`)
+       * - 1 event
+       * # </weight>
+       **/
+      propose: AugmentedSubmittable<(threshold: Compact<MemberCount> | AnyNumber | Uint8Array, proposal: Proposal | { callIndex?: any; args?: any } | string | Uint8Array, lengthBound: Compact<u32> | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Set the collective's membership.
+       * 
+       * - `new_members`: The new member list. Be nice to the chain and provide it sorted.
+       * - `prime`: The prime member whose vote sets the default.
+       * - `old_count`: The upper bound for the previous number of members in storage.
+       * Used for weight estimation.
+       * 
+       * Requires root origin.
+       * 
+       * NOTE: Does not enforce the expected `MaxMembers` limit on the amount of members, but
+       * the weight estimations rely on it to estimate dispatchable weight.
+       * 
+       * # <weight>
+       * ## Weight
+       * - `O(MP + N)` where:
+       * - `M` old-members-count (code- and governance-bounded)
+       * - `N` new-members-count (code- and governance-bounded)
+       * - `P` proposals-count (code-bounded)
+       * - DB:
+       * - 1 storage mutation (codec `O(M)` read, `O(N)` write) for reading and writing the members
+       * - 1 storage read (codec `O(P)`) for reading the proposals
+       * - `P` storage mutations (codec `O(M)`) for updating the votes for each proposal
+       * - 1 storage write (codec `O(1)`) for deleting the old `prime` and setting the new one
+       * # </weight>
+       **/
+      setMembers: AugmentedSubmittable<(newMembers: Vec<AccountId> | (AccountId | string | Uint8Array)[], prime: Option<AccountId> | null | object | string | Uint8Array, oldCount: MemberCount | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Add an aye or nay vote for the sender to the given proposal.
+       * 
+       * Requires the sender to be a member.
+       * 
+       * Transaction fees will be waived if the member is voting on any particular proposal
+       * for the first time and the call is successful. Subsequent vote changes will charge a fee.
+       * # <weight>
+       * ## Weight
+       * - `O(M)` where `M` is members-count (code- and governance-bounded)
+       * - DB:
+       * - 1 storage read `Members` (codec `O(M)`)
+       * - 1 storage mutation `Voting` (codec `O(M)`)
+       * - 1 event
+       * # </weight>
+       **/
+      vote: AugmentedSubmittable<(proposal: Hash | string | Uint8Array, index: Compact<ProposalIndex> | AnyNumber | Uint8Array, approve: bool | boolean | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+    };
     grandpa: {
       /**
        * Note that the current authority set of the GRANDPA finality gadget has
@@ -124,6 +270,9 @@ declare module '@polkadot/api/types/submittable' {
        * reporter.
        **/
       reportEquivocationUnsigned: AugmentedSubmittable<(equivocationProof: GrandpaEquivocationProof | { setId?: any; equivocation?: any } | string | Uint8Array, keyOwnerProof: KeyOwnerProof | { session?: any; trieNodes?: any; validatorCount?: any } | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+    };
+    runtimeUpgrade: {
+      setCode: AugmentedSubmittable<(code: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     scheduler: {
       /**
@@ -416,17 +565,28 @@ declare module '@polkadot/api/types/submittable' {
       updatePricingPolicy: AugmentedSubmittable<(id: u32 | AnyNumber | Uint8Array, name: Bytes | string | Uint8Array, su: Policy | { value?: any; unit?: any } | string | Uint8Array, cu: Policy | { value?: any; unit?: any } | string | Uint8Array, nu: Policy | { value?: any; unit?: any } | string | Uint8Array, ipu: Policy | { value?: any; unit?: any } | string | Uint8Array, uniqueName: Policy | { value?: any; unit?: any } | string | Uint8Array, domainName: Policy | { value?: any; unit?: any } | string | Uint8Array, foundationAccount: AccountId | string | Uint8Array, certifiedSalesAccount: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateTwin: AugmentedSubmittable<(ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
+    tfkvStore: {
+      /**
+       * Read the value stored at a particular key, while removing it from the map.
+       * Also emit the read value in an event
+       **/
+      delete: AugmentedSubmittable<(key: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Set the value stored at a particular key
+       **/
+      set: AugmentedSubmittable<(key: Bytes | string | Uint8Array, value: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+    };
     tftBridgeModule: {
       addBridgeValidator: AugmentedSubmittable<(target: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createRefundTransactionOrAddSig: AugmentedSubmittable<(txHash: Bytes | string | Uint8Array, target: Bytes | string | Uint8Array, amount: u64 | AnyNumber | Uint8Array, signature: Bytes | string | Uint8Array, stellarPubKey: Bytes | string | Uint8Array, sequenceNumber: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       proposeBurnTransactionOrAddSig: AugmentedSubmittable<(transactionId: u64 | AnyNumber | Uint8Array, target: Bytes | string | Uint8Array, amount: u64 | AnyNumber | Uint8Array, signature: Bytes | string | Uint8Array, stellarPubKey: Bytes | string | Uint8Array, sequenceNumber: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       proposeOrVoteMintTransaction: AugmentedSubmittable<(transaction: Bytes | string | Uint8Array, target: AccountId | string | Uint8Array, amount: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       removeBridgeValidator: AugmentedSubmittable<(target: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
-      setBurnFee: AugmentedSubmittable<(amount: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       setBurnTransactionExecuted: AugmentedSubmittable<(transactionId: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       setDepositFee: AugmentedSubmittable<(amount: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       setFeeAccount: AugmentedSubmittable<(target: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       setRefundTransactionExecuted: AugmentedSubmittable<(txHash: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      setWithdrawFee: AugmentedSubmittable<(amount: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       swapToStellar: AugmentedSubmittable<(targetStellarAddress: Bytes | string | Uint8Array, amount: BalanceOf | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     tftPriceModule: {
