@@ -47,7 +47,8 @@ export default {
         "public_config": "Option<PublicConfig>",
         "created": "u64",
         "farming_policy_id": "u32",
-        "interfaces": "Vec<Interface>"
+        "interfaces": "Vec<Interface>",
+        "certification_type": "CertificationType"
       },
       "PublicConfig": {
         "ipv4": "Vec<u8>",

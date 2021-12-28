@@ -108,6 +108,7 @@ export interface Node extends Struct {
   readonly created: u64;
   readonly farming_policy_id: u32;
   readonly interfaces: Vec<Interface>;
+  readonly certification_type: CertificationType;
 }
 
 /** @name Policy */
