@@ -156,6 +156,12 @@ export default {
           "V2Struct"
         ]
       },
+      "TermsAndConditions": {
+        "account_id": "AccountId",
+        "timestamp": "u64",
+        "document_link": "Vec<u8>",
+        "document_hash": "Vec<u8>"
+      }
     }      
   };
   

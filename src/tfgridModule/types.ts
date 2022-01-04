@@ -172,6 +172,14 @@ export interface StorageVersion extends Enum {
   readonly isV2Struct: boolean;
 }
 
+/** @name TermsAndConditions */
+export interface TermsAndConditions extends Struct {
+  readonly account_id: AccountId;
+  readonly timestamp: u64;
+  readonly document_link: Bytes;
+  readonly document_hash: Bytes;
+}
+
 /** @name Twin */
 export interface Twin extends Struct {
   readonly version: u32;

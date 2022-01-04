@@ -556,6 +556,7 @@ declare module '@polkadot/api/types/submittable' {
       deleteNode: AugmentedSubmittable<(id: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       deleteTwin: AugmentedSubmittable<(twinId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       deleteTwinEntity: AugmentedSubmittable<(twinId: u32 | AnyNumber | Uint8Array, entityId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      farmerAcceptTc: AugmentedSubmittable<(documentLink: Bytes | string | Uint8Array, documentHash: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       removeFarmIp: AugmentedSubmittable<(id: u32 | AnyNumber | Uint8Array, ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       reportUptime: AugmentedSubmittable<(uptime: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       setFarmCertification: AugmentedSubmittable<(farmId: u32 | AnyNumber | Uint8Array, certificationType: CertificationType | 'Diy' | 'Certified' | number | Uint8Array) => SubmittableExtrinsic<ApiType>>;
@@ -565,6 +566,7 @@ declare module '@polkadot/api/types/submittable' {
       updateNode: AugmentedSubmittable<(nodeId: u32 | AnyNumber | Uint8Array, farmId: u32 | AnyNumber | Uint8Array, resources: Resources | { hru?: any; sru?: any; cru?: any; mru?: any } | string | Uint8Array, location: Location | { longitude?: any; latitude?: any } | string | Uint8Array, country: Bytes | string | Uint8Array, city: Bytes | string | Uint8Array, interfaces: Vec<Interface> | (Interface | { name?: any; mac?: any; ips?: any } | string | Uint8Array)[]) => SubmittableExtrinsic<ApiType>>;
       updatePricingPolicy: AugmentedSubmittable<(id: u32 | AnyNumber | Uint8Array, name: Bytes | string | Uint8Array, su: Policy | { value?: any; unit?: any } | string | Uint8Array, cu: Policy | { value?: any; unit?: any } | string | Uint8Array, nu: Policy | { value?: any; unit?: any } | string | Uint8Array, ipu: Policy | { value?: any; unit?: any } | string | Uint8Array, uniqueName: Policy | { value?: any; unit?: any } | string | Uint8Array, domainName: Policy | { value?: any; unit?: any } | string | Uint8Array, foundationAccount: AccountId | string | Uint8Array, certifiedSalesAccount: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateTwin: AugmentedSubmittable<(ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      userAcceptTc: AugmentedSubmittable<(documentLink: Bytes | string | Uint8Array, documentHash: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     tfkvStore: {
       /**

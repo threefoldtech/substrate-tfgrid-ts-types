@@ -14,7 +14,7 @@ import type { Keys, SessionIndex } from '@polkadot/types/interfaces/session';
 import type { AccountInfo, DigestOf, EventIndex, EventRecord, LastRuntimeUpgradeInfo, Phase } from '@polkadot/types/interfaces/system';
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
 import type { Contract, ContractBillingInformation } from 'substrate-tfgrid-ts-types/src/smartContractModule';
-import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, StorageVersion, Twin, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, StorageVersion, TermsAndConditions, Twin, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { Burn, BurnTransaction, MintTransaction, RefundTransaction } from 'substrate-tfgrid-ts-types/src/tftBridgeModule';
 import type { ApiTypes } from '@polkadot/api/types';
 
@@ -277,6 +277,7 @@ declare module '@polkadot/api/types/storage' {
       entityId: AugmentedQuery<ApiType, () => Observable<u32>>;
       entityIdByAccountId: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<u32>>;
       entityIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
+      farmersTermsAndConditions: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<Vec<TermsAndConditions>>>;
       farmId: AugmentedQuery<ApiType, () => Observable<u32>>;
       farmIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
       farmingPolicies: AugmentedQuery<ApiType, () => Observable<Vec<FarmingPolicy>>>;
@@ -297,6 +298,7 @@ declare module '@polkadot/api/types/storage' {
       twinId: AugmentedQuery<ApiType, () => Observable<u32>>;
       twinIdByAccountId: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<u32>>;
       twins: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Twin>>;
+      usersTermsAndConditions: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<Vec<TermsAndConditions>>>;
     };
     tfkvStore: {
       tfkvStore: AugmentedQueryDoubleMap<ApiType, (key1: AccountId | string | Uint8Array, key2: Bytes | string | Uint8Array) => Observable<Bytes>>;
