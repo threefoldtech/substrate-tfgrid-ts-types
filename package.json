@@ -1,6 +1,6 @@
 {
   "name": "substrate-tfgrid-ts-types",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "Substrate tfgrid ts types",
   "main": "index.js",
   "repository": "https://github.com/threefoldtech/substrate-tfgrid-ts-types",
@@ -9,7 +9,7 @@
   "scripts": {
     "build": "yarn generate:defs && yarn generate:meta",
     "generate:defs": "ts-node --skip-project node_modules/.bin/polkadot-types-from-defs --package substrate-tfgrid-ts-types/src --input ./src",
-    "generate:meta": "ts-node --skip-project node_modules/.bin/polkadot-types-from-chain --package substrate-tfgrid-ts-types/src --endpoint wss://tfchain.dev.grid.tf --output ./src --strict",
+    "generate:meta": "ts-node --skip-project node_modules/.bin/polkadot-types-from-chain --package substrate-tfgrid-ts-types/src --endpoint ws://localhost:9944 --output ./src --strict",
     "lint": "tsc --noEmit --pretty"
   },
   "dependencies": {
