@@ -180,6 +180,7 @@ declare module '@polkadot/api/types/storage' {
       contractId: AugmentedQuery<ApiType, () => Observable<u64>>;
       contractIdByNameRegistration: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u64>>;
       contractIdByNodeIdAndHash: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: Bytes | string | Uint8Array) => Observable<u64>>;
+      contractLastBilledAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<u64>>;
       contracts: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Contract>>;
       contractsToBillAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Vec<u64>>>;
       /**
@@ -277,7 +278,6 @@ declare module '@polkadot/api/types/storage' {
       entityId: AugmentedQuery<ApiType, () => Observable<u32>>;
       entityIdByAccountId: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<u32>>;
       entityIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
-      farmersTermsAndConditions: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<Vec<TermsAndConditions>>>;
       farmId: AugmentedQuery<ApiType, () => Observable<u32>>;
       farmIdByName: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u32>>;
       farmingPolicies: AugmentedQuery<ApiType, () => Observable<Vec<FarmingPolicy>>>;
@@ -319,7 +319,6 @@ declare module '@polkadot/api/types/storage' {
     tftPriceModule: {
       averageTftPrice: AugmentedQuery<ApiType, () => Observable<U16F16>>;
       bufferRange: AugmentedQuery<ApiType, () => Observable<ITuple<[BufferIndex, BufferIndex]>>>;
-      lastBlockAvgSet: AugmentedQuery<ApiType, () => Observable<BlockNumber>>;
       lastBlockSet: AugmentedQuery<ApiType, () => Observable<BlockNumber>>;
       tftPrice: AugmentedQuery<ApiType, () => Observable<U16F16>>;
       tftPriceHistory: AugmentedQuery<ApiType, (arg: BufferIndex | null) => Observable<ValueStruct>>;

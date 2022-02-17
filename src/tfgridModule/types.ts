@@ -1,7 +1,7 @@
 // Auto-generated via `yarn polkadot-types-from-defs`, do not edit
 /* eslint-disable */
 
-import type { Bytes, Enum, Option, Struct, U8aFixed, Vec, u32, u64 } from '@polkadot/types';
+import type { Bytes, Enum, Option, Struct, U8aFixed, Vec, bool, u32, u64 } from '@polkadot/types';
 import type { AccountId, Balance, BlockNumber, MultiAddress } from '@polkadot/types/interfaces/runtime';
 
 /** @name Address */
@@ -109,6 +109,9 @@ export interface Node extends Struct {
   readonly farming_policy_id: u32;
   readonly interfaces: Vec<Interface>;
   readonly certification_type: CertificationType;
+  readonly secure: bool;
+  readonly virtualized: bool;
+  readonly serial_number: Bytes;
 }
 
 /** @name Policy */
