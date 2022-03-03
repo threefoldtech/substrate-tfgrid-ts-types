@@ -58,6 +58,7 @@ export interface ContractState extends Enum {
   readonly isCreated: boolean;
   readonly isDeleted: boolean;
   readonly asDeleted: Cause;
+  readonly isKilled: boolean;
 }
 
 /** @name DiscountLevel */

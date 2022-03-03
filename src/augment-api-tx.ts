@@ -12,7 +12,7 @@ import type { Period, Priority } from '@polkadot/types/interfaces/scheduler';
 import type { Keys } from '@polkadot/types/interfaces/session';
 import type { Key } from '@polkadot/types/interfaces/system';
 import type { Consumption } from 'substrate-tfgrid-ts-types/src/smartContractModule';
-import type { CertificationCodeType, CertificationType, Interface, Location, Policy, PublicConfig, PublicIP, Resources, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { CertificationCodeType, CertificationType, Interface, Location, Policy, PublicConfig, PublicIP, Resources, StorageVersion, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { ApiTypes, SubmittableExtrinsic } from '@polkadot/api/types';
 
 declare module '@polkadot/api/types/submittable' {
@@ -239,6 +239,55 @@ declare module '@polkadot/api/types/submittable' {
        * # </weight>
        **/
       vote: AugmentedSubmittable<(proposal: Hash | string | Uint8Array, index: Compact<ProposalIndex> | AnyNumber | Uint8Array, approve: bool | boolean | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+    };
+    councilMembership: {
+      /**
+       * Add a member `who` to the set.
+       * 
+       * May only be called from `T::AddOrigin`.
+       **/
+      addMember: AugmentedSubmittable<(who: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Swap out the sending member for some other key `new`.
+       * 
+       * May only be called from `Signed` origin of a current member.
+       * 
+       * Prime membership is passed from the origin account to `new`, if extant.
+       **/
+      changeKey: AugmentedSubmittable<(updated: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Remove the prime member if it exists.
+       * 
+       * May only be called from `T::PrimeOrigin`.
+       **/
+      clearPrime: AugmentedSubmittable<() => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Remove a member `who` from the set.
+       * 
+       * May only be called from `T::RemoveOrigin`.
+       **/
+      removeMember: AugmentedSubmittable<(who: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Change the membership to a new set, disregarding the existing membership. Be nice and
+       * pass `members` pre-sorted.
+       * 
+       * May only be called from `T::ResetOrigin`.
+       **/
+      resetMembers: AugmentedSubmittable<(members: Vec<AccountId> | (AccountId | string | Uint8Array)[]) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Set the prime member. Must be a current member.
+       * 
+       * May only be called from `T::PrimeOrigin`.
+       **/
+      setPrime: AugmentedSubmittable<(who: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Swap out one member `remove` for another `add`.
+       * 
+       * May only be called from `T::SwapOrigin`.
+       * 
+       * Prime membership is *not* passed from `remove` to `add`, if extant.
+       **/
+      swapMember: AugmentedSubmittable<(remove: AccountId | string | Uint8Array, add: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     grandpa: {
       /**
@@ -548,7 +597,7 @@ declare module '@polkadot/api/types/submittable' {
       createEntity: AugmentedSubmittable<(target: AccountId | string | Uint8Array, name: Bytes | string | Uint8Array, country: Bytes | string | Uint8Array, city: Bytes | string | Uint8Array, signature: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createFarm: AugmentedSubmittable<(name: Bytes | string | Uint8Array, publicIps: Vec<PublicIP> | (PublicIP | { ip?: any; gateway?: any; contract_id?: any } | string | Uint8Array)[]) => SubmittableExtrinsic<ApiType>>;
       createFarmingPolicy: AugmentedSubmittable<(name: Bytes | string | Uint8Array, su: u32 | AnyNumber | Uint8Array, cu: u32 | AnyNumber | Uint8Array, nu: u32 | AnyNumber | Uint8Array, ipv4: u32 | AnyNumber | Uint8Array, certificationType: CertificationType | 'Diy' | 'Certified' | number | Uint8Array) => SubmittableExtrinsic<ApiType>>;
-      createNode: AugmentedSubmittable<(farmId: u32 | AnyNumber | Uint8Array, resources: Resources | { hru?: any; sru?: any; cru?: any; mru?: any } | string | Uint8Array, location: Location | { longitude?: any; latitude?: any } | string | Uint8Array, country: Bytes | string | Uint8Array, city: Bytes | string | Uint8Array, interfaces: Vec<Interface> | (Interface | { name?: any; mac?: any; ips?: any } | string | Uint8Array)[], secure: bool | boolean | Uint8Array, virtualized: bool | boolean | Uint8Array, serialNumber: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      createNode: AugmentedSubmittable<(farmId: u32 | AnyNumber | Uint8Array, resources: Resources | { hru?: any; sru?: any; cru?: any; mru?: any } | string | Uint8Array, location: Location | { longitude?: any; latitude?: any } | string | Uint8Array, country: Bytes | string | Uint8Array, city: Bytes | string | Uint8Array, interfaces: Vec<Interface> | (Interface | { name?: any; mac?: any; ips?: any } | string | Uint8Array)[], secureBoot: bool | boolean | Uint8Array, virtualized: bool | boolean | Uint8Array, serialNumber: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createPricingPolicy: AugmentedSubmittable<(name: Bytes | string | Uint8Array, su: Policy | { value?: any; unit?: any } | string | Uint8Array, cu: Policy | { value?: any; unit?: any } | string | Uint8Array, nu: Policy | { value?: any; unit?: any } | string | Uint8Array, ipu: Policy | { value?: any; unit?: any } | string | Uint8Array, uniqueName: Policy | { value?: any; unit?: any } | string | Uint8Array, domainName: Policy | { value?: any; unit?: any } | string | Uint8Array, foundationAccount: AccountId | string | Uint8Array, certifiedSalesAccount: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createTwin: AugmentedSubmittable<(ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       deleteEntity: AugmentedSubmittable<() => SubmittableExtrinsic<ApiType>>;
@@ -561,9 +610,10 @@ declare module '@polkadot/api/types/submittable' {
       reportUptime: AugmentedSubmittable<(uptime: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       setFarmCertification: AugmentedSubmittable<(farmId: u32 | AnyNumber | Uint8Array, certificationType: CertificationType | 'Diy' | 'Certified' | number | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       setNodeCertification: AugmentedSubmittable<(nodeId: u32 | AnyNumber | Uint8Array, certificationType: CertificationType | 'Diy' | 'Certified' | number | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      setStorageVersion: AugmentedSubmittable<(version: StorageVersion | 'V1Struct' | 'V2Struct' | number | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateEntity: AugmentedSubmittable<(name: Bytes | string | Uint8Array, country: Bytes | string | Uint8Array, city: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateFarm: AugmentedSubmittable<(id: u32 | AnyNumber | Uint8Array, name: Bytes | string | Uint8Array, pricingPolicyId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
-      updateNode: AugmentedSubmittable<(nodeId: u32 | AnyNumber | Uint8Array, farmId: u32 | AnyNumber | Uint8Array, resources: Resources | { hru?: any; sru?: any; cru?: any; mru?: any } | string | Uint8Array, location: Location | { longitude?: any; latitude?: any } | string | Uint8Array, country: Bytes | string | Uint8Array, city: Bytes | string | Uint8Array, interfaces: Vec<Interface> | (Interface | { name?: any; mac?: any; ips?: any } | string | Uint8Array)[], secure: bool | boolean | Uint8Array, virtualized: bool | boolean | Uint8Array, serialNumber: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      updateNode: AugmentedSubmittable<(nodeId: u32 | AnyNumber | Uint8Array, farmId: u32 | AnyNumber | Uint8Array, resources: Resources | { hru?: any; sru?: any; cru?: any; mru?: any } | string | Uint8Array, location: Location | { longitude?: any; latitude?: any } | string | Uint8Array, country: Bytes | string | Uint8Array, city: Bytes | string | Uint8Array, interfaces: Vec<Interface> | (Interface | { name?: any; mac?: any; ips?: any } | string | Uint8Array)[], secureBoot: bool | boolean | Uint8Array, virtualized: bool | boolean | Uint8Array, serialNumber: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updatePricingPolicy: AugmentedSubmittable<(id: u32 | AnyNumber | Uint8Array, name: Bytes | string | Uint8Array, su: Policy | { value?: any; unit?: any } | string | Uint8Array, cu: Policy | { value?: any; unit?: any } | string | Uint8Array, nu: Policy | { value?: any; unit?: any } | string | Uint8Array, ipu: Policy | { value?: any; unit?: any } | string | Uint8Array, uniqueName: Policy | { value?: any; unit?: any } | string | Uint8Array, domainName: Policy | { value?: any; unit?: any } | string | Uint8Array, foundationAccount: AccountId | string | Uint8Array, certifiedSalesAccount: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateTwin: AugmentedSubmittable<(ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       userAcceptTc: AugmentedSubmittable<(documentLink: Bytes | string | Uint8Array, documentHash: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
@@ -614,6 +664,53 @@ declare module '@polkadot/api/types/submittable' {
        * # </weight>
        **/
       set: AugmentedSubmittable<(now: Compact<Moment> | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+    };
+    validator: {
+      /**
+       * Start participating in consensus
+       * Will activate the Validator node account on consensus level
+       * A user can only call this if his request to be a validator is approved by the council
+       * Should be called when his node is synced and ready to start validating
+       **/
+      activateValidatorNode: AugmentedSubmittable<() => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Approve validator (council)
+       * Approves a validator to be added as a council member and
+       * to participate in consensus
+       **/
+      approveValidator: AugmentedSubmittable<(validatorAccount: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Bond an account to to a validator account
+       * Just proves that the stash account is indeed under control of the validator account
+       **/
+      bond: AugmentedSubmittable<(validator: LookupSource | { Id: any } | { Index: any } | { Raw: any } | { Address32: any } | { Address20: any } | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Change validator node account
+       * In case the Validator wishes to change his validator node account
+       * he can call this method with the new node validator account
+       * this new account will be added as a new consensus validator if he is validating already
+       **/
+      changeValidatorNodeAccount: AugmentedSubmittable<(newNodeValidatorAccount: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Create a request to become a validator
+       * Validator account (signer): the account of the validator (this account will be added to the council)
+       * Validator node account: the account that will validate on consensus layer
+       * Stash account: the "bank" account of the validator (where rewards should be sent to) the stash should be bonded to a validator
+       * Description: why someone wants to become a validator
+       * Tf Connect ID: the threefold connect ID of the persion who wants to become a validator
+       * Info: some public info about the validator (website link, blog link, ..)
+       * A user can only have 1 validator request at a time
+       **/
+      createValidator: AugmentedSubmittable<(validatorNodeAccount: AccountId | string | Uint8Array, stashAccount: AccountId | string | Uint8Array, description: Bytes | string | Uint8Array, tfConnectId: Bytes | string | Uint8Array, info: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      /**
+       * Remove validator
+       * Removes a validator from:
+       * 1. Council
+       * 2. Storage
+       * 3. Consensus
+       * Can only be called by the user or the council
+       **/
+      removeValidator: AugmentedSubmittable<(validator: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     validatorSet: {
       /**
