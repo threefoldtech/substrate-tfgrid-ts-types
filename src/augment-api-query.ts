@@ -86,16 +86,6 @@ declare module '@polkadot/api/types/storage' {
        **/
       voting: AugmentedQuery<ApiType, (arg: Hash | string | Uint8Array) => Observable<Option<Votes>>>;
     };
-    councilMembership: {
-      /**
-       * The current membership, stored as an ordered Vec.
-       **/
-      members: AugmentedQuery<ApiType, () => Observable<Vec<AccountId>>>;
-      /**
-       * The current prime member, if one exists.
-       **/
-      prime: AugmentedQuery<ApiType, () => Observable<Option<AccountId>>>;
-    };
     grandpa: {
       /**
        * The number of changes (both in terms of keys and underlying economic responsibilities)
@@ -193,6 +183,10 @@ declare module '@polkadot/api/types/storage' {
       contractLastBilledAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<u64>>;
       contracts: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Contract>>;
       contractsToBillAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Vec<u64>>>;
+      /**
+       * The current version of the pallet.
+       **/
+      palletVersion: AugmentedQuery<ApiType, () => Observable<PalletStorageVersion>>;
     };
     sudo: {
       /**
@@ -342,10 +336,6 @@ declare module '@polkadot/api/types/storage' {
     transactionPayment: {
       nextFeeMultiplier: AugmentedQuery<ApiType, () => Observable<Multiplier>>;
       storageVersion: AugmentedQuery<ApiType, () => Observable<Releases>>;
-    };
-    validator: {
-      bonded: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<Option<AccountId>>>;
-      validator: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<Option<Validator>>>;
     };
     validatorSet: {
       flag: AugmentedQuery<ApiType, () => Observable<Option<bool>>>;

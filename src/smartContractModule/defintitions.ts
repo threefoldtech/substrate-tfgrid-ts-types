@@ -42,8 +42,7 @@ export default {
     "ContractState": {
       "_enum": {
         "Created": null,
-        "Deleted": "Cause",
-        "Killed": null
+        "Deleted": "Cause"
       }
     },
     "Cause": {
