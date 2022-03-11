@@ -2,7 +2,7 @@
 /* eslint-disable */
 
 import type { Bytes, Enum, Struct, Vec, u128, u32, u64 } from '@polkadot/types';
-import type { PublicIP } from 'substrate-tfgrid-ts-types/src/tfgridModule';
+import type { PublicIP, Resources } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 
 /** @name Cause */
 export interface Cause extends Enum {
@@ -14,10 +14,7 @@ export interface Cause extends Enum {
 export interface Consumption extends Struct {
   readonly contract_id: u64;
   readonly timestamp: u64;
-  readonly cru: u64;
-  readonly sru: u64;
-  readonly hru: u64;
-  readonly mru: u64;
+  readonly window: u64;
   readonly nru: u64;
 }
 
@@ -51,6 +48,12 @@ export interface ContractData extends Enum {
   readonly asNodeContract: NodeContract;
   readonly isNameContract: boolean;
   readonly asNameContract: NameContract;
+}
+
+/** @name ContractResources */
+export interface ContractResources extends Struct {
+  readonly contract_id: u64;
+  readonly used: Resources;
 }
 
 /** @name ContractState */

@@ -13,7 +13,7 @@ import type { Scheduled, TaskAddress } from '@polkadot/types/interfaces/schedule
 import type { Keys, SessionIndex } from '@polkadot/types/interfaces/session';
 import type { AccountInfo, DigestOf, EventIndex, EventRecord, LastRuntimeUpgradeInfo, Phase } from '@polkadot/types/interfaces/system';
 import type { Multiplier } from '@polkadot/types/interfaces/txpayment';
-import type { Contract, ContractBillingInformation } from 'substrate-tfgrid-ts-types/src/smartContractModule';
+import type { Contract, ContractBillingInformation, ContractResources } from 'substrate-tfgrid-ts-types/src/smartContractModule';
 import type { CertificationCodes, CertificationType, Entity, Farm, FarmingPolicy, Node, PricingPolicy, StorageVersion, TermsAndConditions, Twin, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { Burn, BurnTransaction, MintTransaction, RefundTransaction } from 'substrate-tfgrid-ts-types/src/tftBridgeModule';
 import type { ApiTypes } from '@polkadot/api/types';
@@ -85,6 +85,16 @@ declare module '@polkadot/api/types/storage' {
        * Votes on a given proposal, if it is ongoing.
        **/
       voting: AugmentedQuery<ApiType, (arg: Hash | string | Uint8Array) => Observable<Option<Votes>>>;
+    };
+    councilMembership: {
+      /**
+       * The current membership, stored as an ordered Vec.
+       **/
+      members: AugmentedQuery<ApiType, () => Observable<Vec<AccountId>>>;
+      /**
+       * The current prime member, if one exists.
+       **/
+      prime: AugmentedQuery<ApiType, () => Observable<Option<AccountId>>>;
     };
     grandpa: {
       /**
@@ -180,13 +190,9 @@ declare module '@polkadot/api/types/storage' {
       contractId: AugmentedQuery<ApiType, () => Observable<u64>>;
       contractIdByNameRegistration: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u64>>;
       contractIdByNodeIdAndHash: AugmentedQueryDoubleMap<ApiType, (key1: u32 | AnyNumber | Uint8Array, key2: Bytes | string | Uint8Array) => Observable<u64>>;
-      contractLastBilledAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<u64>>;
       contracts: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Contract>>;
       contractsToBillAt: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<Vec<u64>>>;
-      /**
-       * The current version of the pallet.
-       **/
-      palletVersion: AugmentedQuery<ApiType, () => Observable<PalletStorageVersion>>;
+      nodeContractResources: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<ContractResources>>;
     };
     sudo: {
       /**
@@ -336,6 +342,10 @@ declare module '@polkadot/api/types/storage' {
     transactionPayment: {
       nextFeeMultiplier: AugmentedQuery<ApiType, () => Observable<Multiplier>>;
       storageVersion: AugmentedQuery<ApiType, () => Observable<Releases>>;
+    };
+    validator: {
+      bonded: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<Option<AccountId>>>;
+      validator: AugmentedQuery<ApiType, (arg: AccountId | string | Uint8Array) => Observable<Option<Validator>>>;
     };
     validatorSet: {
       flag: AugmentedQuery<ApiType, () => Observable<Option<bool>>>;
