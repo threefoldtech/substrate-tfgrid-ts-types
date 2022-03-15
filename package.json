@@ -1,6 +1,6 @@
 {
   "name": "substrate-tfgrid-ts-types",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Substrate tfgrid ts types",
   "main": "index.js",
   "repository": "https://github.com/threefoldtech/substrate-tfgrid-ts-types",

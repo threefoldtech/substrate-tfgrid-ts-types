@@ -25,11 +25,20 @@ export default {
     "NameContract": {
       "name": "Vec<u8>"
     },
-    "Consumption": {
+    "NruConsumption": {
       "contract_id": "u64",
       "timestamp": "u64",
       "window": "u64",
-      "nru": "u64",
+      "nru": "u64"
+    },
+    "Consumption": {
+      "contract_id": "u64",
+      "timestamp": "u64",
+      "cru": "u64",
+      "sru": "u64",
+      "hru": "u64",
+      "mru": "u64",
+      "nru": "u64"
     },
     "ContractBillingInformation": {
       "previous_nu_reported": "u64",

@@ -14,7 +14,10 @@ export interface Cause extends Enum {
 export interface Consumption extends Struct {
   readonly contract_id: u64;
   readonly timestamp: u64;
-  readonly window: u64;
+  readonly cru: u64;
+  readonly sru: u64;
+  readonly hru: u64;
+  readonly mru: u64;
   readonly nru: u64;
 }
 
@@ -84,6 +87,14 @@ export interface NodeContract extends Struct {
   readonly deployment_hash: Bytes;
   readonly public_ips: u32;
   readonly public_ips_list: Vec<PublicIP>;
+}
+
+/** @name NruConsumption */
+export interface NruConsumption extends Struct {
+  readonly contract_id: u64;
+  readonly timestamp: u64;
+  readonly window: u64;
+  readonly nru: u64;
 }
 
 export type PHANTOM_SMARTCONTRACTMODULE = 'smartContractModule';

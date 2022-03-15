@@ -11,7 +11,7 @@ import type { AccountId, Balance, BalanceOf, BlockNumber, Call, ChangesTrieConfi
 import type { Period, Priority } from '@polkadot/types/interfaces/scheduler';
 import type { Keys } from '@polkadot/types/interfaces/session';
 import type { Key } from '@polkadot/types/interfaces/system';
-import type { Consumption, ContractResources } from 'substrate-tfgrid-ts-types/src/smartContractModule';
+import type { Consumption, ContractResources, NruConsumption } from 'substrate-tfgrid-ts-types/src/smartContractModule';
 import type { CertificationCodeType, CertificationType, Interface, Location, Policy, PublicConfig, PublicIP, Resources, StorageVersion, U16F16 } from 'substrate-tfgrid-ts-types/src/tfgridModule';
 import type { ApiTypes, SubmittableExtrinsic } from '@polkadot/api/types';
 
@@ -428,7 +428,8 @@ declare module '@polkadot/api/types/submittable' {
       setKeys: AugmentedSubmittable<(keys: Keys, proof: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     smartContractModule: {
-      addReports: AugmentedSubmittable<(reports: Vec<Consumption> | (Consumption | { contract_id?: any; timestamp?: any; window?: any; nru?: any } | string | Uint8Array)[]) => SubmittableExtrinsic<ApiType>>;
+      addNruReports: AugmentedSubmittable<(reports: Vec<NruConsumption> | (NruConsumption | { contract_id?: any; timestamp?: any; window?: any; nru?: any } | string | Uint8Array)[]) => SubmittableExtrinsic<ApiType>>;
+      addReports: AugmentedSubmittable<(reports: Vec<Consumption> | (Consumption | { contract_id?: any; timestamp?: any; cru?: any; sru?: any; hru?: any; mru?: any; nru?: any } | string | Uint8Array)[]) => SubmittableExtrinsic<ApiType>>;
       cancelContract: AugmentedSubmittable<(contractId: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createNameContract: AugmentedSubmittable<(name: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createNodeContract: AugmentedSubmittable<(nodeId: u32 | AnyNumber | Uint8Array, data: Bytes | string | Uint8Array, deploymentHash: Bytes | string | Uint8Array, publicIps: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
