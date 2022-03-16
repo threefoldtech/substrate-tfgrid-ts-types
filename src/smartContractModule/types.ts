@@ -51,6 +51,8 @@ export interface ContractData extends Enum {
   readonly asNodeContract: NodeContract;
   readonly isNameContract: boolean;
   readonly asNameContract: NameContract;
+  readonly isRentContract: boolean;
+  readonly asRentContract: RentContract;
 }
 
 /** @name ContractResources */
@@ -95,6 +97,11 @@ export interface NruConsumption extends Struct {
   readonly timestamp: u64;
   readonly window: u64;
   readonly nru: u64;
+}
+
+/** @name RentContract */
+export interface RentContract extends Struct {
+  readonly node_id: u32;
 }
 
 export type PHANTOM_SMARTCONTRACTMODULE = 'smartContractModule';

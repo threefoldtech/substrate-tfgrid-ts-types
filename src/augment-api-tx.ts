@@ -1,7 +1,7 @@
 // Auto-generated via `yarn polkadot-types-from-chain`, do not edit
 /* eslint-disable */
 
-import type { Bytes, Compact, Option, Vec, bool, u32, u64 } from '@polkadot/types';
+import type { Bytes, Compact, Option, Vec, bool, u32, u64, u8 } from '@polkadot/types';
 import type { AnyNumber } from '@polkadot/types/types';
 import type { MemberCount, ProposalIndex } from '@polkadot/types/interfaces/collective';
 import type { Proposal } from '@polkadot/types/interfaces/democracy';
@@ -433,6 +433,7 @@ declare module '@polkadot/api/types/submittable' {
       cancelContract: AugmentedSubmittable<(contractId: u64 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createNameContract: AugmentedSubmittable<(name: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createNodeContract: AugmentedSubmittable<(nodeId: u32 | AnyNumber | Uint8Array, data: Bytes | string | Uint8Array, deploymentHash: Bytes | string | Uint8Array, publicIps: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      createRentContract: AugmentedSubmittable<(nodeId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       reportContractResources: AugmentedSubmittable<(contractResources: Vec<ContractResources> | (ContractResources | { contract_id?: any; used?: any } | string | Uint8Array)[]) => SubmittableExtrinsic<ApiType>>;
       updateNodeContract: AugmentedSubmittable<(contractId: u64 | AnyNumber | Uint8Array, data: Bytes | string | Uint8Array, deploymentHash: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
@@ -600,7 +601,7 @@ declare module '@polkadot/api/types/submittable' {
       createFarm: AugmentedSubmittable<(name: Bytes | string | Uint8Array, publicIps: Vec<PublicIP> | (PublicIP | { ip?: any; gateway?: any; contract_id?: any } | string | Uint8Array)[]) => SubmittableExtrinsic<ApiType>>;
       createFarmingPolicy: AugmentedSubmittable<(name: Bytes | string | Uint8Array, su: u32 | AnyNumber | Uint8Array, cu: u32 | AnyNumber | Uint8Array, nu: u32 | AnyNumber | Uint8Array, ipv4: u32 | AnyNumber | Uint8Array, certificationType: CertificationType | 'Diy' | 'Certified' | number | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createNode: AugmentedSubmittable<(farmId: u32 | AnyNumber | Uint8Array, resources: Resources | { hru?: any; sru?: any; cru?: any; mru?: any } | string | Uint8Array, location: Location | { longitude?: any; latitude?: any } | string | Uint8Array, country: Bytes | string | Uint8Array, city: Bytes | string | Uint8Array, interfaces: Vec<Interface> | (Interface | { name?: any; mac?: any; ips?: any } | string | Uint8Array)[], secureBoot: bool | boolean | Uint8Array, virtualized: bool | boolean | Uint8Array, serialNumber: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
-      createPricingPolicy: AugmentedSubmittable<(name: Bytes | string | Uint8Array, su: Policy | { value?: any; unit?: any } | string | Uint8Array, cu: Policy | { value?: any; unit?: any } | string | Uint8Array, nu: Policy | { value?: any; unit?: any } | string | Uint8Array, ipu: Policy | { value?: any; unit?: any } | string | Uint8Array, uniqueName: Policy | { value?: any; unit?: any } | string | Uint8Array, domainName: Policy | { value?: any; unit?: any } | string | Uint8Array, foundationAccount: AccountId | string | Uint8Array, certifiedSalesAccount: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      createPricingPolicy: AugmentedSubmittable<(name: Bytes | string | Uint8Array, su: Policy | { value?: any; unit?: any } | string | Uint8Array, cu: Policy | { value?: any; unit?: any } | string | Uint8Array, nu: Policy | { value?: any; unit?: any } | string | Uint8Array, ipu: Policy | { value?: any; unit?: any } | string | Uint8Array, uniqueName: Policy | { value?: any; unit?: any } | string | Uint8Array, domainName: Policy | { value?: any; unit?: any } | string | Uint8Array, foundationAccount: AccountId | string | Uint8Array, certifiedSalesAccount: AccountId | string | Uint8Array, discountForDedicationNodes: u8 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       createTwin: AugmentedSubmittable<(ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       deleteEntity: AugmentedSubmittable<() => SubmittableExtrinsic<ApiType>>;
       deleteFarm: AugmentedSubmittable<(id: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
@@ -616,7 +617,7 @@ declare module '@polkadot/api/types/submittable' {
       updateEntity: AugmentedSubmittable<(name: Bytes | string | Uint8Array, country: Bytes | string | Uint8Array, city: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateFarm: AugmentedSubmittable<(id: u32 | AnyNumber | Uint8Array, name: Bytes | string | Uint8Array, pricingPolicyId: u32 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateNode: AugmentedSubmittable<(nodeId: u32 | AnyNumber | Uint8Array, farmId: u32 | AnyNumber | Uint8Array, resources: Resources | { hru?: any; sru?: any; cru?: any; mru?: any } | string | Uint8Array, location: Location | { longitude?: any; latitude?: any } | string | Uint8Array, country: Bytes | string | Uint8Array, city: Bytes | string | Uint8Array, interfaces: Vec<Interface> | (Interface | { name?: any; mac?: any; ips?: any } | string | Uint8Array)[], secureBoot: bool | boolean | Uint8Array, virtualized: bool | boolean | Uint8Array, serialNumber: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
-      updatePricingPolicy: AugmentedSubmittable<(id: u32 | AnyNumber | Uint8Array, name: Bytes | string | Uint8Array, su: Policy | { value?: any; unit?: any } | string | Uint8Array, cu: Policy | { value?: any; unit?: any } | string | Uint8Array, nu: Policy | { value?: any; unit?: any } | string | Uint8Array, ipu: Policy | { value?: any; unit?: any } | string | Uint8Array, uniqueName: Policy | { value?: any; unit?: any } | string | Uint8Array, domainName: Policy | { value?: any; unit?: any } | string | Uint8Array, foundationAccount: AccountId | string | Uint8Array, certifiedSalesAccount: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
+      updatePricingPolicy: AugmentedSubmittable<(id: u32 | AnyNumber | Uint8Array, name: Bytes | string | Uint8Array, su: Policy | { value?: any; unit?: any } | string | Uint8Array, cu: Policy | { value?: any; unit?: any } | string | Uint8Array, nu: Policy | { value?: any; unit?: any } | string | Uint8Array, ipu: Policy | { value?: any; unit?: any } | string | Uint8Array, uniqueName: Policy | { value?: any; unit?: any } | string | Uint8Array, domainName: Policy | { value?: any; unit?: any } | string | Uint8Array, foundationAccount: AccountId | string | Uint8Array, certifiedSalesAccount: AccountId | string | Uint8Array, discountForDedicationNodes: u8 | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       updateTwin: AugmentedSubmittable<(ip: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       userAcceptTc: AugmentedSubmittable<(documentLink: Bytes | string | Uint8Array, documentHash: Bytes | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
@@ -645,6 +646,7 @@ declare module '@polkadot/api/types/submittable' {
       swapToStellar: AugmentedSubmittable<(targetStellarAddress: Bytes | string | Uint8Array, amount: BalanceOf | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     tftPriceModule: {
+      setAllowedOrigin: AugmentedSubmittable<(target: AccountId | string | Uint8Array) => SubmittableExtrinsic<ApiType>>;
       setPrices: AugmentedSubmittable<(price: U16F16 | string | Uint8Array, blockNumber: BlockNumber | AnyNumber | Uint8Array) => SubmittableExtrinsic<ApiType>>;
     };
     timestamp: {

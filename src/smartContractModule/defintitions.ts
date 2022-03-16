@@ -12,7 +12,8 @@ export default {
     "ContractData": {
       "_enum": {
         "NodeContract": "NodeContract",
-        "NameContract": "NameContract"
+        "NameContract": "NameContract",
+        "RentContract": "RentContract"
       }
     },
     "NodeContract": {
@@ -24,6 +25,9 @@ export default {
     },
     "NameContract": {
       "name": "Vec<u8>"
+    },
+    "RentContract": {
+      "node_id": "u32"
     },
     "NruConsumption": {
       "contract_id": "u64",

@@ -186,6 +186,7 @@ declare module '@polkadot/api/types/storage' {
     };
     smartContractModule: {
       activeNodeContracts: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Vec<u64>>>;
+      activeRentContractForNode: AugmentedQuery<ApiType, (arg: u32 | AnyNumber | Uint8Array) => Observable<Contract>>;
       contractBillingInformationById: AugmentedQuery<ApiType, (arg: u64 | AnyNumber | Uint8Array) => Observable<ContractBillingInformation>>;
       contractId: AugmentedQuery<ApiType, () => Observable<u64>>;
       contractIdByNameRegistration: AugmentedQuery<ApiType, (arg: Bytes | string | Uint8Array) => Observable<u64>>;
@@ -323,6 +324,7 @@ declare module '@polkadot/api/types/storage' {
       withdrawFee: AugmentedQuery<ApiType, () => Observable<u64>>;
     };
     tftPriceModule: {
+      allowedOrigin: AugmentedQuery<ApiType, () => Observable<AccountId>>;
       averageTftPrice: AugmentedQuery<ApiType, () => Observable<U16F16>>;
       bufferRange: AugmentedQuery<ApiType, () => Observable<ITuple<[BufferIndex, BufferIndex]>>>;
       lastBlockSet: AugmentedQuery<ApiType, () => Observable<BlockNumber>>;
